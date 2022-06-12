@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2022 at 12:10 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Generation Time: Jun 12, 2022 at 09:18 PM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -47,8 +47,19 @@ CREATE TABLE `producttbl` (
   `product_name` varchar(100) NOT NULL,
   `product_category` varchar(50) NOT NULL,
   `product_price` double NOT NULL,
-  `product_qty` int(11) NOT NULL
+  `product_qty` int(11) NOT NULL,
+  `product_image` varchar(250) NOT NULL,
+  `product_description` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `producttbl`
+--
+
+INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category`, `product_price`, `product_qty`, `product_image`, `product_description`) VALUES
+(13, 14442715, 'BENTO CAKE xdqw', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054226033.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. \r\n'),
+(14, 10425875, 'BENTO CAKE pt1', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054344083.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. asdasdasdasd'),
+(15, 12290141, 'BENTO CAKE pt 2', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054368258.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit');
 
 -- --------------------------------------------------------
 
@@ -76,7 +87,8 @@ CREATE TABLE `userinfotbl` (
 --
 
 INSERT INTO `userinfotbl` (`num`, `user_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `add_house`, `add_brgy`, `add_city`, `add_province`, `contact_no`, `email_address`) VALUES
-(1, 202200001, 'Kaguya', '', 'Shinomiya', '01/01/2003', 'kanto lang\r\n', 'Navarro', 'General Trias', 'Cavite', '09123456789', 'kaguya.shinomiya@cvsu.edu.ph');
+(1, 202200001, 'Kaguya', '', 'Shinomiya', '01/01/2003', 'kanto lang\r\n', 'Navarro', 'General Trias', 'Cavite', '09123456789', 'kaguya.shinomiya@cvsu.edu.ph'),
+(2, 123123123, 'Shouko', '', 'Komi', '12/25/2005', '123', '12312', '3123', '123', '12312312', '123123');
 
 -- --------------------------------------------------------
 
@@ -97,7 +109,9 @@ CREATE TABLE `usertbl` (
 --
 
 INSERT INTO `usertbl` (`num`, `user_id`, `username`, `password`, `usercategory`) VALUES
-(2, 202200001, 'testuser', '$2a$10$iVuPQIC5qmNd16VpPzebMOn3VLfCU8erkn1TGN37tqa.Rsmch5E5u', 123);
+(2, 202200001, 'testuser', '$2a$10$iVuPQIC5qmNd16VpPzebMOn3VLfCU8erkn1TGN37tqa.Rsmch5E5u', 123),
+(3, 123123123, 'test', '$2a$10$X.gt9P/6u8pCiHxOLzrJv.apItTrYD1stHB0hiYKDvfPtIo.Sa6eq', 0),
+(4, 123123123, 'test', '$2a$10$S0MYXTtOXssSIh081q4WWufu5Sm5mXHQ6457kU0t1ptHobumDOhPu', 0);
 
 --
 -- Indexes for dumped tables
@@ -141,19 +155,19 @@ ALTER TABLE `ordertbl`
 -- AUTO_INCREMENT for table `producttbl`
 --
 ALTER TABLE `producttbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `userinfotbl`
 --
 ALTER TABLE `userinfotbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `usertbl`
 --
 ALTER TABLE `usertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
