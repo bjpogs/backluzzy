@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2022 at 09:18 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Jun 13, 2022 at 12:48 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -49,17 +49,46 @@ CREATE TABLE `producttbl` (
   `product_price` double NOT NULL,
   `product_qty` int(11) NOT NULL,
   `product_image` varchar(250) NOT NULL,
-  `product_description` varchar(250) NOT NULL
+  `product_description` varchar(250) NOT NULL,
+  `product_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `producttbl`
 --
 
-INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category`, `product_price`, `product_qty`, `product_image`, `product_description`) VALUES
-(13, 14442715, 'BENTO CAKE xdqw', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054226033.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. \r\n'),
-(14, 10425875, 'BENTO CAKE pt1', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054344083.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. asdasdasdasd'),
-(15, 12290141, 'BENTO CAKE pt 2', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054368258.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit');
+INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category`, `product_price`, `product_qty`, `product_image`, `product_description`, `product_status`) VALUES
+(13, 14442715, 'BENTO CAKE xdqw', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054226033.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. \r\n', 1),
+(14, 10425875, 'BENTO CAKE pt1', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054344083.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. asdasdasdasd', 1),
+(15, 12290141, 'BENTO CAKE pt 2', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054368258.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reservationtbl`
+--
+
+CREATE TABLE `reservationtbl` (
+  `num` int(11) NOT NULL,
+  `reservation_id` int(11) NOT NULL,
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `contact_number` varchar(15) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `pickupdate` varchar(50) NOT NULL,
+  `pickuptime` varchar(10) NOT NULL,
+  `image` varchar(250) NOT NULL,
+  `size` varchar(20) NOT NULL,
+  `specialrequest` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `reservationtbl`
+--
+
+INSERT INTO `reservationtbl` (`num`, `reservation_id`, `first_name`, `last_name`, `address`, `contact_number`, `email`, `pickupdate`, `pickuptime`, `image`, `size`, `specialrequest`) VALUES
+(1, 12506414, 'kaguya', 'shinomiya', '123123', '213123', 'bjpogs26@gmail.com', '2022-06-23', '10:00 AM', 'http://localhost:4000\\Images\\image-1655091226665.jpg', '6x2', '');
 
 -- --------------------------------------------------------
 
@@ -130,6 +159,12 @@ ALTER TABLE `producttbl`
   ADD PRIMARY KEY (`num`);
 
 --
+-- Indexes for table `reservationtbl`
+--
+ALTER TABLE `reservationtbl`
+  ADD PRIMARY KEY (`num`);
+
+--
 -- Indexes for table `userinfotbl`
 --
 ALTER TABLE `userinfotbl`
@@ -156,6 +191,12 @@ ALTER TABLE `ordertbl`
 --
 ALTER TABLE `producttbl`
   MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `reservationtbl`
+--
+ALTER TABLE `reservationtbl`
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `userinfotbl`
