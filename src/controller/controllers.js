@@ -8,6 +8,7 @@ exports.default = (req, res) => {
     res.send("fuck!");
 }
 
+// login
 exports.checkCredentials = (req, res) => {
     let tempass = req.body.password;
     users.checkCredentials(req.body.username, async(err, user) => {
@@ -65,6 +66,19 @@ exports.superpoweraddadmin = async (req, res) => {
     })
 }
 
+// refresh token 
+exports.meowrefreshtoken = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    jwt.verify(req.session.refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if(err) return res.sendStatus(404);
+        const accessToken = jwt.sign({ name : user.name}, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '1hr'})
+        res.json({
+            accessToken: accessToken
+        })
+        console.log('refreshtoken : ok');
+    })
+}
+
 // get all products
 exports.getallproducts = (req, res) => {
     users.getallproducts((err, user) => {
@@ -119,6 +133,33 @@ exports.getproductbyid = (req, res) => {
         else{
             console.log('add product : ok');
             res.send(user);
+        }
+    })
+}
+
+// reserve product
+exports.reservecake = (req, res) => {
+    var id = Math.floor(Math.random()*9000000)+10000000;
+    var data = {
+        reservation_id : id,
+        first_name : req.body.first_name,
+        last_name : req.body.last_name,
+        address : req.body.address,
+        contact_number : req.body.contact_number,
+        email : req.body.email,
+        pickupdate : req.body.pickupdate,
+        pickuptime : req.body.time,
+        image : "http://localhost:4000\\" + req.file.path,
+        size : req.body.size,
+        specialrequest : req.body.specialrequest
+    }
+    // save
+    users.reservecake(data, (err, user) => {
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else{
+            console.log('add reservation : ok');
+            res.send(id)
         }
     })
 }

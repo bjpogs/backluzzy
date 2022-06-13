@@ -59,4 +59,12 @@ Users.getproductbyid = (id, result) => {
     })
 }
 
+// add reservtaion
+Users.reservecake = (data, result) => {
+    con.query('insert into reservationtbl set ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
 module.exports = Users;

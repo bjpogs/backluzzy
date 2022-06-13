@@ -51,6 +51,13 @@ router.post('/addproduct', upload.single('product_image'), controller.addproduct
 // retrieve product by id
 router.get('/getproductbyid/:id', controller.getproductbyid);
 
+// reservation
+router.post('/reservecake', upload.single('image'), controller.reservecake);
+
+// refresh token
+router.post('/refreshmeow', controller.meowrefreshtoken)
+
+// retrieve all reservation
 
 
 module.exports = router;
