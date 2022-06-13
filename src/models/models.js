@@ -67,4 +67,25 @@ Users.reservecake = (data, result) => {
     })
 }
 
+// get reservation
+Users.getallreservation = (result) => {
+    con.query('select * from reservationtbl', (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// get userinfo
+Users.getuserinfo = (id, result) => {
+    con.query('select * from userinfotbl where user_id = ?', id , (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+//update userinfo
+Users.updateuserinfo = (id, data, result) => {
+    // to be continued .... 
+}
+
 module.exports = Users;

@@ -55,9 +55,18 @@ router.get('/getproductbyid/:id', controller.getproductbyid);
 router.post('/reservecake', upload.single('image'), controller.reservecake);
 
 // refresh token
-router.post('/refreshmeow', controller.meowrefreshtoken)
+router.post('/refreshmeow', controller.meowrefreshtoken);
 
 // retrieve all reservation
+router.get('/getallreservation', authenticateToken, controller.getallreservation);
 
+//logut
+router.post('/logout', authenticateToken, controller.logout);
+
+// get user info
+router.get('/getuserinfo', authenticateToken, controller.getuserinfo);
+
+// save user info
+router.put('/updateuserinfo', authenticateToken, controller.updateuserinfo);
 
 module.exports = router;

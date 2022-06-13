@@ -1,5 +1,6 @@
 'use strict';
 const bcrypt = require('bcryptjs');
+const e = require('express');
 const jwt = require('jsonwebtoken');
 const users = require('../models/models')
 require("dotenv").config()
@@ -160,6 +161,51 @@ exports.reservecake = (req, res) => {
         else{
             console.log('add reservation : ok');
             res.send(id)
+        }
+    })
+}
+
+// get all reservation
+exports.getallreservation =(req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    users.getallreservation((err,user) => {
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else{
+            console.log('get all reservation : ok');
+            res.send(user)
+        }
+    })
+}
+
+//logout
+exports.logout = (req, res) => {
+    req.session.destroy();
+    res.sendStatus(200);
+}
+
+// get userinfo
+exports.getuserinfo = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    users.getuserinfo(req.session.user, (err, user) => {
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else if (!user.length) res.sendStatus(500);
+        else{
+            console.log('get user : ok');
+            res.send(user)
+        }
+    })
+}
+
+exports.updateuserinfo = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    users.updateuserinfo(req.session.user, req.data, (err, user) => {
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else{
+            console.log('get all reservation : ok');
+            res.send(user)
         }
     })
 }
