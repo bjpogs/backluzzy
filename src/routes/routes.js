@@ -67,6 +67,6 @@ router.post('/logout', authenticateToken, controller.logout);
 router.get('/getuserinfo', authenticateToken, controller.getuserinfo);
 
 // save user info
-router.put('/updateuserinfo', authenticateToken, controller.updateuserinfo);
+router.post('/updateuserinfo', authenticateToken, controller.updateuserinfo);
 
 module.exports = router;

@@ -160,7 +160,9 @@ exports.reservecake = (req, res) => {
         else if (user.errno) res.sendStatus(500);
         else{
             console.log('add reservation : ok');
-            res.send(id)
+            res.json({
+                ref_id : id
+            })
         }
     })
 }
@@ -200,11 +202,13 @@ exports.getuserinfo = (req, res) => {
 
 exports.updateuserinfo = (req, res) => {
     if (!req.session.user) return res.sendStatus(401)
-    users.updateuserinfo(req.session.user, req.data, (err, user) => {
+    console.log(req.body);
+    users.updateuserinfo(req.session.user, req.body, (err, user) => {
+        console.log(user);
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{
-            console.log('get all reservation : ok');
+            console.log('update user: ok');
             res.send(user)
         }
     })

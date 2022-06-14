@@ -85,7 +85,10 @@ Users.getuserinfo = (id, result) => {
 
 //update userinfo
 Users.updateuserinfo = (id, data, result) => {
-    // to be continued .... 
+    con.query('update userinfotbl set ? where user_id = ?', [data, id], (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
 }
 
 module.exports = Users;
