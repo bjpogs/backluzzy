@@ -58,7 +58,7 @@ router.post('/reservecake', upload.single('image'), controller.reservecake);
 router.post('/refreshmeow', controller.meowrefreshtoken);
 
 // retrieve all reservation
-router.get('/getallreservation', authenticateToken, controller.getallreservation);
+router.get('/getallreservation', controller.getallreservation);
 
 //logut
 router.post('/logout', authenticateToken, controller.logout);
@@ -68,5 +68,8 @@ router.get('/getuserinfo', authenticateToken, controller.getuserinfo);
 
 // save user info
 router.post('/updateuserinfo', authenticateToken, controller.updateuserinfo);
+
+// delete prduct
+router.delete('/deleteproduct/:id', controller.deleteproduct);
 
 module.exports = router;

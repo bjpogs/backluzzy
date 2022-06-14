@@ -91,4 +91,12 @@ Users.updateuserinfo = (id, data, result) => {
     })
 }
 
+// delete product
+Users.deleteproduct = (id, result) => {
+    con.query('delete from producttbl where product_id = ?', id, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
 module.exports = Users;

@@ -169,7 +169,7 @@ exports.reservecake = (req, res) => {
 
 // get all reservation
 exports.getallreservation =(req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    //if (!req.session.user) return res.sendStatus(401)
     users.getallreservation((err,user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -209,6 +209,17 @@ exports.updateuserinfo = (req, res) => {
         else if (user.errno) res.sendStatus(500);
         else{
             console.log('update user: ok');
+            res.send(user)
+        }
+    })
+}
+
+exports.deleteproduct = (req, res) => {
+    users.deleteproduct(req.params.id, (err, user) => {
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else{
+            console.log('delete product: ok');
             res.send(user)
         }
     })
