@@ -216,6 +216,7 @@ exports.updateuserinfo = (req, res) => {
 
 exports.deleteproduct = (req, res) => {
     users.deleteproduct(req.params.id, (err, user) => {
+        console.log(user);
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{
