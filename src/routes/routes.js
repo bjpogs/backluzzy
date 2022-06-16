@@ -70,6 +70,18 @@ router.get('/getuserinfo', authenticateToken, controller.getuserinfo);
 router.post('/updateuserinfo', authenticateToken, controller.updateuserinfo);
 
 // delete prduct
-router.delete('/deleteproduct/:id', controller.deleteproduct);
+router.delete('/deleteproduct/:id',  authenticateToken, controller.deleteproduct);
+
+// process order
+router.post('/saveorder', authenticateToken, controller.saveorder);
+
+// add to cart
+router.post('/addtocart', authenticateToken, controller.addtocart);
+
+// retrieve cart
+router.get('/shoppingcart', authenticateToken, controller.shoppingcart);
 
 module.exports = router;
+
+// need to fix : cart ( mode of order : reservation or order direct. )
+// admin interface.
