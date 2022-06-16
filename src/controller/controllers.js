@@ -106,6 +106,7 @@ exports.getproductbycategory = (req, res) => {
 
 // add product
 exports.addproduct = (req, res) => {
+    //if (!req.session.user) return res.sendStatus(401)
     var id = Math.floor(Math.random()*9000000)+10000000;
     var data = {
         product_id : id,
@@ -215,13 +216,50 @@ exports.updateuserinfo = (req, res) => {
 }
 
 exports.deleteproduct = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
     users.deleteproduct(req.params.id, (err, user) => {
-        console.log(user);
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else if (!user.length) res.sendStatus(404);
+        else{
+            console.log('delete product: ok');
+            res.send(user)
+        }
+    })
+}
+
+exports.saveorder = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    users.saveorder(req.session.user, req.body, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{
             console.log('delete product: ok');
             res.send(user)
         }
+    })
+}
+
+exports.addtocart = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    var data  = {
+        user_id : req.session.user,
+        product_id : req.body.product_id
+    }
+    users.addtocart(data, (err, user) => {
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else{
+            console.log('add to cart: ok');
+            res.send(user)
+        }
+    })
+}
+
+// retrieve cart
+exports.shoppingcart = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    users.shoppingcart(req.session.user, (err, user) => {
+        
     })
 }

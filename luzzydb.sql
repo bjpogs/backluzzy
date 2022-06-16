@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2022 at 12:48 PM
+-- Generation Time: Jun 16, 2022 at 12:34 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -20,6 +20,26 @@ SET time_zone = "+00:00";
 --
 -- Database: `luzzydb`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carttbl`
+--
+
+CREATE TABLE `carttbl` (
+  `num` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `carttbl`
+--
+
+INSERT INTO `carttbl` (`num`, `user_id`, `product_id`) VALUES
+(0, 123123123, 14442715),
+(0, 123123123, 10425875);
 
 -- --------------------------------------------------------
 
@@ -47,6 +67,7 @@ CREATE TABLE `producttbl` (
   `product_name` varchar(100) NOT NULL,
   `product_category` varchar(50) NOT NULL,
   `product_price` double NOT NULL,
+  `product_size` varchar(20) NOT NULL,
   `product_qty` int(11) NOT NULL,
   `product_image` varchar(250) NOT NULL,
   `product_description` varchar(250) NOT NULL,
@@ -57,10 +78,13 @@ CREATE TABLE `producttbl` (
 -- Dumping data for table `producttbl`
 --
 
-INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category`, `product_price`, `product_qty`, `product_image`, `product_description`, `product_status`) VALUES
-(13, 14442715, 'BENTO CAKE xdqw', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054226033.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. \r\n', 1),
-(14, 10425875, 'BENTO CAKE pt1', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054344083.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. asdasdasdasd', 1),
-(15, 12290141, 'BENTO CAKE pt 2', 'BENTO', 300, 2, 'http://localhost:4000\\Images\\product_image-1655054368258.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit', 1);
+INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category`, `product_price`, `product_size`, `product_qty`, `product_image`, `product_description`, `product_status`) VALUES
+(13, 14442715, 'BENTO CAKE xdqw', 'BENTO', 300, '', 0, 'http://localhost:4000\\Images\\product_image-1655054226033.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. \r\n', 1),
+(14, 10425875, 'BENTO CAKE pt1', 'BENTO', 300, '', 2, 'http://localhost:4000\\Images\\product_image-1655054344083.jpg', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec augue nunc, pretium at augue at, convallis pellentesque ipsum. Vestibulum diam risus, sagittis at fringilla at, pulvinar vel risus. asdasdasdasd', 1),
+(16, 11743053, 'CUPCAKE NO. 1', 'CUPCAKE', 100, '', 5, 'http://localhost:4000\\Images\\product_image-1655176562535.jpg', 'test description', 0),
+(18, 11959811, 'CUPCAKE STRAWBERRY NO 2', 'CUPCAKE', 100, '', 10, 'http://localhost:4000\\Images\\product_image-1655178399127.jpg', '', 0),
+(21, 13658271, 'ANNIVERSARY DESIGN 1', 'ANNIVERSARY', 600, '', 3, 'http://localhost:4000\\Images\\product_image-1655199597986.jpg', '', 0),
+(22, 15129064, 'ANNIVERSARY DESIGN 2', 'ANNIVERSARY', 600, '', 3, 'http://localhost:4000\\Images\\product_image-1655199858614.jpg', '', 0);
 
 -- --------------------------------------------------------
 
@@ -88,7 +112,10 @@ CREATE TABLE `reservationtbl` (
 --
 
 INSERT INTO `reservationtbl` (`num`, `reservation_id`, `first_name`, `last_name`, `address`, `contact_number`, `email`, `pickupdate`, `pickuptime`, `image`, `size`, `specialrequest`) VALUES
-(1, 12506414, 'kaguya', 'shinomiya', '123123', '213123', 'bjpogs26@gmail.com', '2022-06-23', '10:00 AM', 'http://localhost:4000\\Images\\image-1655091226665.jpg', '6x2', '');
+(1, 12506414, 'kaguya', 'shinomiya', '123123', '213123', 'bjpogs26@gmail.com', '2022-06-23', '10:00 AM', 'http://localhost:4000\\Images\\image-1655091226665.jpg', '6x2', ''),
+(2, 14380299, 'asd', 'asdf', 'asdfasdf', '123123', 'asdf.asdfa@asdf.asdf', '2022-06-23', '10:00 AM', 'http://localhost:4000\\Images\\image-1655174030628.jpg', '6x2', ''),
+(3, 15582251, 'asd', 'asd', 'asdasd', '12323', 'asd@asd.asd', '2022-06-22', '10:00 AM', 'http://localhost:4000\\Images\\image-1655174130989.jpg', '6x2', ''),
+(4, 15033801, 'asd', 'asd', 'asd', '123', 'asdf.asdfa@asdf.asdf', '2022-06-24', '10:00 AM', 'http://localhost:4000\\Images\\image-1655174177641.jpg', '6x2', '');
 
 -- --------------------------------------------------------
 
@@ -117,7 +144,7 @@ CREATE TABLE `userinfotbl` (
 
 INSERT INTO `userinfotbl` (`num`, `user_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `add_house`, `add_brgy`, `add_city`, `add_province`, `contact_no`, `email_address`) VALUES
 (1, 202200001, 'Kaguya', '', 'Shinomiya', '01/01/2003', 'kanto lang\r\n', 'Navarro', 'General Trias', 'Cavite', '09123456789', 'kaguya.shinomiya@cvsu.edu.ph'),
-(2, 123123123, 'Shouko', '', 'Komi', '12/25/2005', '123', '12312', '3123', '123', '12312312', '123123');
+(2, 123123123, 'Shouko', '', 'Komi', '12/25/2005', '123', '12312', '3123', 'cavite', '12312312', 'shouko.komi@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -190,13 +217,13 @@ ALTER TABLE `ordertbl`
 -- AUTO_INCREMENT for table `producttbl`
 --
 ALTER TABLE `producttbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `reservationtbl`
 --
 ALTER TABLE `reservationtbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `userinfotbl`

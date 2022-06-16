@@ -99,4 +99,12 @@ Users.deleteproduct = (id, result) => {
     })
 }
 
+// add to cart
+Users.addtocart = (data, result) => {
+    con.query("insert into carttbl set ?", data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
 module.exports = Users;
