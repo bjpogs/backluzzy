@@ -318,10 +318,18 @@ exports.placeorder = (req, res) => {
             if (err) return haserr = true
             else if (res.errno) return haserr = true
         })
-        if (haserr) res.sendStatus(500);
-        else{
-            console.log('place order : true');
-            res.sendStatus(200);
-        }
     })
+    if (haserr) res.sendStatus(500);
+    else{
+        // delete from cart
+        users.deletefromcart(req.session.user, (err, user) => {
+            if (err) res.sendStatus(500);
+            else if (user.errno) res.sendStatus(500);
+            else{
+                console.log('place order : true');
+                res.sendStatus(200);
+            }
+        })
+        
+    }
 }
