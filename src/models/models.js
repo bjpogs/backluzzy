@@ -107,4 +107,28 @@ Users.addtocart = (data, result) => {
     })
 }
 
+// retrieve shopping cart
+Users.shoppingcart = (id, result) => {
+    con.query('select * from carttbl ct inner join producttbl pt on ct.product_id = pt.product_id where ct.user_id = ? order by pt.product_name asc', id, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// delete from cart
+Users.deletefromcart = (id, result) => {
+    con.query('delete from carttbl where user_id = ?', id , (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// place order
+Users.placeorder = (data, result) => {
+    con.query('insert into ordertbl set ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
 module.exports = Users;

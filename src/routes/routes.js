@@ -81,6 +81,11 @@ router.post('/addtocart', authenticateToken, controller.addtocart);
 // retrieve cart
 router.get('/shoppingcart', authenticateToken, controller.shoppingcart);
 
+// remove item from cart
+router.post('/deletefromcart', authenticateToken, controller.deletefromcart);
+
+// place order
+router.post('/placeorder', authenticateToken, controller.placeorder);
 module.exports = router;
 
 // need to fix : cart ( mode of order : reservation or order direct. )

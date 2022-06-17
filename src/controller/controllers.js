@@ -114,6 +114,8 @@ exports.addproduct = (req, res) => {
         product_category : req.body.product_category,
         product_price : req.body.product_price,
         product_qty : req.body.product_qty,
+        product_size : req.body.product_size,
+        product_description : req.body.product_description,
         product_image : "http://localhost:4000\\" + req.file.path
     }
     users.addproduct(data, (err, user) => {
@@ -260,6 +262,66 @@ exports.addtocart = (req, res) => {
 exports.shoppingcart = (req, res) => {
     if (!req.session.user) return res.sendStatus(401)
     users.shoppingcart(req.session.user, (err, user) => {
-        
+        if (err) res.sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else{
+            console.log('shopping cart : ok');
+            res.send(user)
+        }
+    })
+}
+
+// delete from cart
+exports.deletefromcart = (req, res) => {
+    // delete all items from user first
+    var haserror = false
+    users.deletefromcart(req.session.user, (err, user) => {
+        if (err) res,sendStatus(500);
+        else if (user.errno) res.sendStatus(500);
+        else{
+            // resave cart 
+            var items = req.body
+            console.log(items);
+            items.map(meow => {
+                var data  = {
+                    user_id : req.session.user,
+                    product_id : meow.product_id
+                }
+                users.addtocart(data, (err, user) => {
+                    if (err) return haserror = true
+                    else if (user.errno) return haserror = true
+                })
+            })
+            if (haserror) return res.sendStatus(500);
+            else {
+                res.sendStatus(200);
+            }
+        }
+    })
+}
+
+// place order
+exports.placeorder = (req, res) => {
+    if (!req.session.user) return res.sendStatus(401)
+    var data = req.body;
+    var haserr = false;
+    data.map(meow => {
+        var id = Math.floor(Math.random()*9000000)+10000000;
+        var tempdata = {
+            order_id : id,
+            user_id : req.session.user,
+            product_id : meow.product_id,
+            order_date : meow.order_date,
+            order_request : meow.request
+        }
+        users.placeorder(tempdata, (err, res) => {
+            if (err) return haserr = true
+            else if (res.errno) return haserr = true
+        })
+        if (haserr) res.sendStatus(500);
+        else{
+            console.log('place order : true');
+            res.sendStatus(200);
+        }
     })
 }
