@@ -12,12 +12,14 @@ exports.default = (req, res) => {
 // login
 exports.checkCredentials = (req, res) => {
     let tempass = req.body.password;
+    var usercat = 0
     users.checkCredentials(req.body.username, async(err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else if (!user.length) res.sendStatus(403);
         else{
             let passhold = user[0].password;
+            usercat = user[0].usercategory
             try{
                 if (await bcrypt.compare(tempass, passhold)){
                     const username = req.body.username
@@ -31,10 +33,10 @@ exports.checkCredentials = (req, res) => {
                         else{
                             req.session.user = user_id
                             req.session.refreshToken = refreshToken
-                            console.log(req.session);
                             res.json({
                                 accessToken : accessToken,
                                 fname : user[0].first_name,
+                                usercategory : usercat
                             })
                         }
                     })
@@ -59,7 +61,7 @@ exports.superpoweraddadmin = async (req, res) => {
     new_user.password = hashedPassword;
     users.superpoweraddadmin(new_user, (err, user) => {
         if (err) res.sendStatus(500);
-        else if (user.errno) res.sendStatus(400);
+        else if (user.errno) res.sendStatus(500);
         else{
             console.log('add admin user : ok');
             res.sendStatus(200);
@@ -69,7 +71,7 @@ exports.superpoweraddadmin = async (req, res) => {
 
 // refresh token 
 exports.meowrefreshtoken = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     jwt.verify(req.session.refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if(err) return res.sendStatus(404);
         const accessToken = jwt.sign({ name : user.name}, process.env.ACCESS_TOKEN_SECRET,{expiresIn: '1hr'})
@@ -84,7 +86,7 @@ exports.meowrefreshtoken = (req, res) => {
 exports.getallproducts = (req, res) => {
     users.getallproducts((err, user) => {
         if (err) res.sendStatus(500);
-        else if (user.errno) res.sendStatus(400);
+        else if (user.errno) res.sendStatus(500);
         else{
             console.log('get all product : ok');
             res.send(user);
@@ -96,7 +98,7 @@ exports.getallproducts = (req, res) => {
 exports.getproductbycategory = (req, res) => {
     users.getproductbycategory(req.params.id, (err, user) => {
         if (err) res.sendStatus(500);
-        else if (user.errno) res.sendStatus(400);
+        else if (user.errno) res.sendStatus(500);
         else{
             console.log('get all product : ok');
             res.send(user);
@@ -106,7 +108,7 @@ exports.getproductbycategory = (req, res) => {
 
 // add product
 exports.addproduct = (req, res) => {
-    //if (!req.session.user) return res.sendStatus(401)
+    //if (!req.session.user) return res.sendStatus(403)
     var id = Math.floor(Math.random()*9000000)+10000000;
     var data = {
         product_id : id,
@@ -120,7 +122,7 @@ exports.addproduct = (req, res) => {
     }
     users.addproduct(data, (err, user) => {
         if (err) res.sendStatus(500);
-        else if (user.errno) res.sendStatus(400);
+        else if (user.errno) res.sendStatus( );
         else{
             console.log('add product : ok');
             res.send(user);
@@ -132,7 +134,7 @@ exports.addproduct = (req, res) => {
 exports.getproductbyid = (req, res) => {
     users.getproductbyid(req.params.id, (err, user) => {
         if (err) res.sendStatus(500);
-        else if (user.errno) res.sendStatus(400);
+        else if (user.errno) res.sendStatus(500);
         else if (!user.length) res.sendStatus(404);
         else{
             console.log('add product : ok');
@@ -172,7 +174,7 @@ exports.reservecake = (req, res) => {
 
 // get all reservation
 exports.getallreservation =(req, res) => {
-    //if (!req.session.user) return res.sendStatus(401)
+    //if (!req.session.user) return res.sendStatus(403)
     users.getallreservation((err,user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -191,7 +193,7 @@ exports.logout = (req, res) => {
 
 // get userinfo
 exports.getuserinfo = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     users.getuserinfo(req.session.user, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -204,7 +206,7 @@ exports.getuserinfo = (req, res) => {
 }
 
 exports.updateuserinfo = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     console.log(req.body);
     users.updateuserinfo(req.session.user, req.body, (err, user) => {
         console.log(user);
@@ -218,7 +220,7 @@ exports.updateuserinfo = (req, res) => {
 }
 
 exports.deleteproduct = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     users.deleteproduct(req.params.id, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -231,7 +233,7 @@ exports.deleteproduct = (req, res) => {
 }
 
 exports.saveorder = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     users.saveorder(req.session.user, req.body, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -243,7 +245,7 @@ exports.saveorder = (req, res) => {
 }
 
 exports.addtocart = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     var data  = {
         user_id : req.session.user,
         product_id : req.body.product_id
@@ -260,7 +262,7 @@ exports.addtocart = (req, res) => {
 
 // retrieve cart
 exports.shoppingcart = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     users.shoppingcart(req.session.user, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -302,7 +304,7 @@ exports.deletefromcart = (req, res) => {
 
 // place order
 exports.placeorder = (req, res) => {
-    if (!req.session.user) return res.sendStatus(401)
+    if (!req.session.user) return res.sendStatus(403)
     var data = req.body;
     var haserr = false;
     data.map(meow => {
@@ -332,4 +334,94 @@ exports.placeorder = (req, res) => {
         })
         
     }
+}
+
+exports.register = async (req, res) => {
+    // check if username exist.
+    var id = Math.floor(Math.random()*9000000)+10000000;
+    let tempass = req.body.password;
+    const hashedPassword = await bcrypt.hash(tempass, 10);
+    var newpassword = hashedPassword;
+    var data = {
+        user_id : id,
+        username : req.body.username,
+        password : newpassword,
+        usercategory : 0
+    }
+    users.adduser(data, (err, user) => {
+        if (err) res.sendStatus(500);
+        else if (user.errno) {
+            if (user.errno == 1062)
+            {
+                res.sendStatus(400)
+                console.log(user);
+            }
+            else res.sendStatus(500)
+        }
+        else{
+            // add userinfotbl
+            var userdata = {
+                user_id : id,
+                first_name : req.body.first_name,
+                middle_name : req.body.middle_name,
+                last_name : req.body.last_name,
+                birthday : req.body.birthday,
+                add_house : req.body.add_house,
+                add_brgy : req.body.add_brgy,
+                add_city : req.body.add_city,
+                add_province : req.body.add_province,
+                contact_no : req.body.contact_no,
+                email_address : req.body.email_address
+            }
+            users.adduserinfo(userdata, (err ,userx) => {
+                if (err) res.sendStatus(500)
+                else if (user.errno) res.sendStatus(500)
+                else{
+                    console.log('register user : ok');
+                    res.sendStatus(200);
+                }
+            })
+        }
+    })
+} 
+
+// save custom
+exports.savecustom = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403)
+    var id = Math.floor(Math.random()*9000000)+10000000;
+    var data = {
+        product_id : id,
+        user_id : req.session.user,
+        size : req.body.size,
+        flavor : req.body.flavor,
+        design : req.body.design,
+        topping1 : req.body.top1,
+        topping2 : req.body.top2,
+        topper : req.body.topper,
+        message : req.body.message
+    }
+    users.savecustom(data, (err, user) => {
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            // add to cart
+            var orid = Math.floor(Math.random()*9000000)+10000000;
+            var tempdata = {
+                order_id : orid,
+                user_id : req.session.user,
+                product_id : id,
+                order_date : req.body.date,
+            }
+            users.placeorder(tempdata, (err, user) => {
+                
+        console.log(user);
+                if (err) res.sendStatus(500)
+                else if (user.errno) res.sendStatus(500)
+                else{
+                    console.log('build a cake : ok');
+                    res.sendStatus(200);
+                }
+            })
+        }
+    })
 }

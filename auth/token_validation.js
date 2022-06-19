@@ -7,7 +7,7 @@ exports.authenticateToken = (req, res, next) => {
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
         if (err) {
             console.log('error : ',err);
-            return res.sendStatus(400) 
+            return res.sendStatus(401) 
         }
         req.user = user.toString()
         next()

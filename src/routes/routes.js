@@ -86,6 +86,13 @@ router.post('/deletefromcart', authenticateToken, controller.deletefromcart);
 
 // place order
 router.post('/placeorder', authenticateToken, controller.placeorder);
+
+// register
+router.post('/register', controller.register);
+
+// save custom
+router.post('/savecustom', authenticateToken, controller.savecustom);
+
 module.exports = router;
 
 // need to fix : cart ( mode of order : reservation or order direct. )

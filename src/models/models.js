@@ -131,4 +131,29 @@ Users.placeorder = (data, result) => {
     })
 }
 
+// add usertbl
+Users.adduser = (data, result) => {
+    con.query('insert into usertbl set ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// add userinfo
+Users.adduserinfo = (data, result) => {
+    con.query('insert into userinfotbl set ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// add to builcake
+Users.savecustom = (data, result) => {
+    con.query('insert into buildcaketbl set ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+
 module.exports = Users;
