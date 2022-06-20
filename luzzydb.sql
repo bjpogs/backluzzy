@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2022 at 07:00 AM
+-- Generation Time: Jun 20, 2022 at 03:00 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -24,6 +24,37 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `buildcaketbl`
+--
+
+CREATE TABLE `buildcaketbl` (
+  `buildcakenum` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `size` varchar(100) NOT NULL,
+  `flavor` varchar(100) NOT NULL,
+  `design` varchar(100) NOT NULL,
+  `topping1` varchar(100) NOT NULL,
+  `topping2` varchar(100) NOT NULL,
+  `topper` varchar(100) NOT NULL,
+  `message` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `buildcaketbl`
+--
+
+INSERT INTO `buildcaketbl` (`buildcakenum`, `product_id`, `user_id`, `size`, `flavor`, `design`, `topping1`, `topping2`, `topper`, `message`) VALUES
+(1, 12592722, 123123123, '8x5', 'Moist-Chocolate', 'Design4', 'topping1', 'topping1', '', ''),
+(2, 14129626, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', ''),
+(3, 11038300, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', ''),
+(4, 13975179, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', ''),
+(5, 13501559, 123123123, '6x2', 'Ube', 'Design 1', 'topping4', 'topping5', 'Happy Anniversary', ''),
+(6, 15351688, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `carttbl`
 --
 
@@ -39,9 +70,7 @@ CREATE TABLE `carttbl` (
 --
 
 INSERT INTO `carttbl` (`cart_num`, `user_id`, `product_id`, `request`) VALUES
-(36, 123123123, 10425875, ''),
-(37, 123123123, 11743053, ''),
-(38, 123123123, 10425875, '');
+(42, 123123123, 13632354, '');
 
 -- --------------------------------------------------------
 
@@ -54,9 +83,20 @@ CREATE TABLE `ordertbl` (
   `order_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `order_date` varchar(100) NOT NULL,
-  `order_request` varchar(250) NOT NULL
+  `order_date` varchar(100) DEFAULT NULL,
+  `order_request` varchar(250) NOT NULL,
+  `order_status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `ordertbl`
+--
+
+INSERT INTO `ordertbl` (`num`, `order_id`, `user_id`, `product_id`, `order_date`, `order_request`, `order_status`) VALUES
+(1, 12644302, 123123123, 13975179, NULL, '', 0),
+(2, 11587672, 123123123, 13501559, NULL, '', 0),
+(3, 14548175, 123123123, 15351688, '2022-06-22', '', 0),
+(4, 10563455, 123123123, 15129064, NULL, '', 0);
 
 -- --------------------------------------------------------
 
@@ -174,7 +214,8 @@ CREATE TABLE `userinfotbl` (
 
 INSERT INTO `userinfotbl` (`num`, `user_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `add_house`, `add_brgy`, `add_city`, `add_province`, `contact_no`, `email_address`) VALUES
 (1, 202200001, 'Kaguya', '', 'Shinomiya', '01/01/2003', 'kanto lang\r\n', 'Navarro', 'General Trias', 'Cavite', '09123456789', 'kaguya.shinomiya@cvsu.edu.ph'),
-(2, 123123123, 'Shouko', '', 'Komi', '12/25/2005', '123', '12312', '3123', 'cavite', '12312312', 'shouko.komi@gmail.com');
+(2, 123123123, 'Shouko', '', 'Komi', '12/25/2005', '123', '12312', '3123', 'cavite', '12312312', 'shouko.komi@gmail.com'),
+(3, 12646981, 'Chika', '', 'Fujiwara', '2015-01-14', 'no', 'no', 'no', 'no', '123123123', 'chika.fujiwara@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -196,12 +237,20 @@ CREATE TABLE `usertbl` (
 
 INSERT INTO `usertbl` (`num`, `user_id`, `username`, `password`, `usercategory`) VALUES
 (2, 202200001, 'testuser', '$2a$10$iVuPQIC5qmNd16VpPzebMOn3VLfCU8erkn1TGN37tqa.Rsmch5E5u', 123),
-(3, 123123123, 'test', '$2a$10$X.gt9P/6u8pCiHxOLzrJv.apItTrYD1stHB0hiYKDvfPtIo.Sa6eq', 0),
-(4, 123123123, 'test', '$2a$10$S0MYXTtOXssSIh081q4WWufu5Sm5mXHQ6457kU0t1ptHobumDOhPu', 0);
+(4, 123123123, 'test', '$2a$10$S0MYXTtOXssSIh081q4WWufu5Sm5mXHQ6457kU0t1ptHobumDOhPu', 0),
+(5, 12978673, 'asd', '$2a$10$Rlpoq.SXGwXWDkGNjFjvueAvk4bgXG1Kf8c673hmqOMP7D6ptRc2G', 0),
+(16, 12646981, 'test1', '$2a$10$BYk6dVFDUo34V6jO1CaeiO2EvGJ0OqCHtK0oy4rsI94O6jhHjPtcm', 0);
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `buildcaketbl`
+--
+ALTER TABLE `buildcaketbl`
+  ADD PRIMARY KEY (`buildcakenum`),
+  ADD UNIQUE KEY `order_id` (`product_id`);
 
 --
 -- Indexes for table `carttbl`
@@ -237,23 +286,30 @@ ALTER TABLE `userinfotbl`
 -- Indexes for table `usertbl`
 --
 ALTER TABLE `usertbl`
-  ADD PRIMARY KEY (`num`);
+  ADD PRIMARY KEY (`num`),
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `buildcaketbl`
+--
+ALTER TABLE `buildcaketbl`
+  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `carttbl`
 --
 ALTER TABLE `carttbl`
-  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `ordertbl`
 --
 ALTER TABLE `ordertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `producttbl`
@@ -271,13 +327,13 @@ ALTER TABLE `reservationtbl`
 -- AUTO_INCREMENT for table `userinfotbl`
 --
 ALTER TABLE `userinfotbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `usertbl`
 --
 ALTER TABLE `usertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
