@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2022 at 03:00 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Jun 24, 2022 at 11:20 AM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,20 +37,25 @@ CREATE TABLE `buildcaketbl` (
   `topping1` varchar(100) NOT NULL,
   `topping2` varchar(100) NOT NULL,
   `topper` varchar(100) NOT NULL,
-  `message` varchar(250) NOT NULL
+  `icing` varchar(100) NOT NULL,
+  `message` varchar(250) NOT NULL,
+  `number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `buildcaketbl`
 --
 
-INSERT INTO `buildcaketbl` (`buildcakenum`, `product_id`, `user_id`, `size`, `flavor`, `design`, `topping1`, `topping2`, `topper`, `message`) VALUES
-(1, 12592722, 123123123, '8x5', 'Moist-Chocolate', 'Design4', 'topping1', 'topping1', '', ''),
-(2, 14129626, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', ''),
-(3, 11038300, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', ''),
-(4, 13975179, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', ''),
-(5, 13501559, 123123123, '6x2', 'Ube', 'Design 1', 'topping4', 'topping5', 'Happy Anniversary', ''),
-(6, 15351688, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '');
+INSERT INTO `buildcaketbl` (`buildcakenum`, `product_id`, `user_id`, `size`, `flavor`, `design`, `topping1`, `topping2`, `topper`, `icing`, `message`, `number`) VALUES
+(1, 12592722, 123123123, '8x5', 'Moist-Chocolate', 'Design4', 'topping1', 'topping1', '', '', '', 0),
+(2, 14129626, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', 0),
+(3, 11038300, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', 0),
+(4, 13975179, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', 0),
+(5, 13501559, 123123123, '6x2', 'Ube', 'Design 1', 'topping4', 'topping5', 'Happy Anniversary', '', '', 0),
+(6, 15351688, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', 0),
+(7, 13651034, 123123123, '8x5 3 layer', 'Moist-Chocolate', 'Design2', 'None', '', 'Number', '', '', 0),
+(8, 16783201, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', 0),
+(9, 13439383, 123123123, '8x5 3 layer', 'Moist-Chocolate', 'Design3', 'topping3', 'topping2', 'Number', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -96,7 +101,10 @@ INSERT INTO `ordertbl` (`num`, `order_id`, `user_id`, `product_id`, `order_date`
 (1, 12644302, 123123123, 13975179, NULL, '', 0),
 (2, 11587672, 123123123, 13501559, NULL, '', 0),
 (3, 14548175, 123123123, 15351688, '2022-06-22', '', 0),
-(4, 10563455, 123123123, 15129064, NULL, '', 0);
+(4, 10563455, 123123123, 15129064, NULL, '', 0),
+(5, 15892159, 123123123, 13651034, '', '', 0),
+(6, 11508493, 123123123, 16783201, '', '', 0),
+(7, 10207827, 123123123, 13439383, '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -297,7 +305,7 @@ ALTER TABLE `usertbl`
 -- AUTO_INCREMENT for table `buildcaketbl`
 --
 ALTER TABLE `buildcaketbl`
-  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `carttbl`
@@ -309,7 +317,7 @@ ALTER TABLE `carttbl`
 -- AUTO_INCREMENT for table `ordertbl`
 --
 ALTER TABLE `ordertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `producttbl`

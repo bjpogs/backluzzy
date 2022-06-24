@@ -398,6 +398,8 @@ exports.savecustom = (req, res) => {
         topping1 : req.body.top1,
         topping2 : req.body.top2,
         topper : req.body.topper,
+        icing : req.body.icing,
+        number : req.body.number,
         message : req.body.message
     }
     users.savecustom(data, (err, user) => {
@@ -413,8 +415,6 @@ exports.savecustom = (req, res) => {
                 order_date : req.body.date,
             }
             users.placeorder(tempdata, (err, user) => {
-                
-        console.log(user);
                 if (err) res.sendStatus(500)
                 else if (user.errno) res.sendStatus(500)
                 else{
