@@ -157,6 +157,8 @@ exports.reservecake = (req, res) => {
         pickuptime : req.body.time,
         image : "http://localhost:4000\\" + req.file.path,
         size : req.body.size,
+        flavor : req.body.flavor,
+        icing : req.body.icing,
         specialrequest : req.body.specialrequest
     }
     // save
@@ -172,18 +174,6 @@ exports.reservecake = (req, res) => {
     })
 }
 
-// get all reservation
-exports.getallreservation =(req, res) => {
-    //if (!req.session.user) return res.sendStatus(403)
-    users.getallreservation((err,user) => {
-        if (err) res.sendStatus(500);
-        else if (user.errno) res.sendStatus(500);
-        else{
-            console.log('get all reservation : ok');
-            res.send(user)
-        }
-    })
-}
 
 //logout
 exports.logout = (req, res) => {
@@ -422,6 +412,71 @@ exports.savecustom = (req, res) => {
                     res.sendStatus(200);
                 }
             })
+        }
+    })
+}
+
+// get all orders
+exports.getallbuildorders = (req, res) => {
+    //if (!req.session.user) return res.sendStatus(403)
+    users.getallbuildorders((err, user) => {
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else if (!user.length) res.sendStatus(404)
+        else{
+            console.log('get all build orders : ok');
+            res.send(user);
+        }
+    })
+}
+
+exports.getallorders = (req, res) => {
+    //if (!req.session.user) return res.sendStatus(403)
+    users.getallorders((err, user) => {
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else if (!user.length) res.sendStatus(404)
+        else{
+            console.log('get all orders : ok');
+            res.send(user);
+        }
+    })
+}
+
+exports.updatestatus = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403)
+    users.updatestatus(req.body.order_id, req.body.status, (err, user) => {
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('update status : ok');
+            res.sendStatus(200);
+        }
+    })
+}
+
+exports.getallreservation = (req, res) => {
+    //if (!req.session.user) return res.sendStatus(403)
+    users.getallreservation((err, user) => {
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else if (!user.length) res.sendStatus(404)
+        else{
+            console.log('get all reservation : ok');
+            res.send(user);
+        }
+    })
+}
+
+// update reservation status
+exports.updatereservationstatus = (req, res) => {
+    //if (!req.session.user) return res.sendStatus(403)
+    users.updatereservationstatus(req.body.reservation_id, req.body.status, (err, user) => {
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('update reservation status : ok');
+            res.send(user);
         }
     })
 }

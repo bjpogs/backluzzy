@@ -57,9 +57,6 @@ router.post('/reservecake', upload.single('image'), controller.reservecake);
 // refresh token
 router.post('/refreshmeow', controller.meowrefreshtoken);
 
-// retrieve all reservation
-router.get('/getallreservation', controller.getallreservation);
-
 //logut
 router.post('/logout', authenticateToken, controller.logout);
 
@@ -92,6 +89,21 @@ router.post('/register', controller.register);
 
 // save custom
 router.post('/savecustom', authenticateToken, controller.savecustom);
+
+// retrieve all build cake orders
+router.get('/allbuildorders', controller.getallbuildorders);
+
+// retrieve all regular orders
+router.get('/allorders' , controller.getallorders);
+
+// update status
+router.post('/updatestatus', authenticateToken, controller.updatestatus);
+
+// retrieve all reservation orders
+router.get('/allreservation', authenticateToken, controller.getallreservation);
+
+// update reservation status
+router.post('/updatereservationstatus', authenticateToken, controller.updatereservationstatus);
 
 module.exports = router;
 

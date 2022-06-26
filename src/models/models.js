@@ -29,7 +29,7 @@ Users.getbasic = (user_id, result) => {
 
 // get all products
 Users.getallproducts = (result) => {
-    con.query('select * from producttbl', (err, res) => {
+    con.query('select * from producttbl order by product_category asc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
@@ -155,5 +155,44 @@ Users.savecustom = (data, result) => {
     })
 }
 
+// get all build orders
+Users.getallbuildorders = (result) => {
+    con.query('select * from ordertbl ot inner join buildcaketbl bt on ot.product_id = bt.product_id inner join userinfotbl ut on ot.user_id = ut.user_id inner join statustbl st on ot.order_id = st.order_id order by ot.placeddate asc', (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// get all orders
+Users.getallorders = (result) => {
+    con.query('select * from ordertbl ot inner join producttbl bt on ot.product_id = bt.product_id inner join userinfotbl ut on ot.user_id = ut.user_id inner join statustbl st on ot.order_id = st.order_id order by ot.placeddate asc', (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// update status
+Users.updatestatus = (id, status, result) => {
+    con.query('update statustbl set status = ? where order_id = ?', [status, id], (err , res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// get all rservation
+Users.getallreservation = (result) => {
+    con.query('select * from reservationtbl order by pickupdate desc', (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// update reservation status
+Users.updatereservationstatus = (id, status, result) => {
+    con.query('update reservationtbl set status = ? where reservation_id = ?', [status, id], (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
 
 module.exports = Users;
