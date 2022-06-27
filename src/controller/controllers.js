@@ -3,6 +3,11 @@ const bcrypt = require('bcryptjs');
 const e = require('express');
 const jwt = require('jsonwebtoken');
 const users = require('../models/models')
+const fs = require('fs')
+const { promisify } = require('util')
+
+const unlinkAsync = promisify(fs.unlink)
+
 require("dotenv").config()
 
 exports.default = (req, res) => {
@@ -23,7 +28,7 @@ exports.checkCredentials = (req, res) => {
             try{
                 if (await bcrypt.compare(tempass, passhold)){
                     const username = req.body.username
-                    const accessToken = jwt.sign({ name : username }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '1hr'})
+                    const accessToken = jwt.sign({ name : username }, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '24hr'})
                     const refreshToken = jwt.sign({ name: username }, process.env.REFRESH_TOKEN_SECRET)
                     let user_id = user[0].user_id.toString()
                     users.getbasic(user_id, (err, user) => {
@@ -108,15 +113,19 @@ exports.getproductbycategory = (req, res) => {
 
 // add product
 exports.addproduct = (req, res) => {
-    //if (!req.session.user) return res.sendStatus(403)
+    if (!req.session.user) return res.sendStatus(403)
     var id = Math.floor(Math.random()*9000000)+10000000;
     var data = {
         product_id : id,
         product_name : req.body.product_name,
         product_category : req.body.product_category,
         product_price : req.body.product_price,
-        product_qty : req.body.product_qty,
         product_size : req.body.product_size,
+        product_flavor : req.body.product_flavor,
+        product_shape : req.body.product_shape,
+        product_icing : req.body.product_icing,
+        product_layer : req.body.product_layer,
+        product_tier : req.body.product_tier,
         product_description : req.body.product_description,
         product_image : "http://localhost:4000\\" + req.file.path
     }
@@ -418,7 +427,7 @@ exports.savecustom = (req, res) => {
 
 // get all orders
 exports.getallbuildorders = (req, res) => {
-    //if (!req.session.user) return res.sendStatus(403)
+    if (!req.session.user) return res.sendStatus(403)
     users.getallbuildorders((err, user) => {
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
@@ -431,7 +440,7 @@ exports.getallbuildorders = (req, res) => {
 }
 
 exports.getallorders = (req, res) => {
-    //if (!req.session.user) return res.sendStatus(403)
+    if (!req.session.user) return res.sendStatus(403)
     users.getallorders((err, user) => {
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
@@ -456,7 +465,7 @@ exports.updatestatus = (req, res) => {
 }
 
 exports.getallreservation = (req, res) => {
-    //if (!req.session.user) return res.sendStatus(403)
+    if (!req.session.user) return res.sendStatus(403)
     users.getallreservation((err, user) => {
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
@@ -470,13 +479,48 @@ exports.getallreservation = (req, res) => {
 
 // update reservation status
 exports.updatereservationstatus = (req, res) => {
-    //if (!req.session.user) return res.sendStatus(403)
+    if (!req.session.user) return res.sendStatus(403)
     users.updatereservationstatus(req.body.reservation_id, req.body.status, (err, user) => {
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
             console.log('update reservation status : ok');
             res.send(user);
+        }
+    })
+}
+
+// update product
+exports.updateproduct = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403)
+    var tempdata = req.body
+    var product_id = req.body.product_id
+    delete tempdata.product_id
+    console.log(req.body );
+    users.updateproduct(product_id, tempdata, (err, user) => {
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('update reservation status : ok');
+            res.send(user);
+        }
+    })
+}
+
+// update product image
+exports.updateproductimg = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403)
+    var id = req.body.product_id
+    var image = "http://localhost:4000\\" + req.file.path
+    var moo = req.body.old_img.slice(22)
+    console.log(moo);
+    users.updateproductimg(id, image, (err, user) =>{
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('update reservation status : ok');
+            unlinkAsync(moo)
+            res.sendStatus(200)
         }
     })
 }

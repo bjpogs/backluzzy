@@ -195,4 +195,20 @@ Users.updatereservationstatus = (id, status, result) => {
     })
 }
 
+// update product
+Users.updateproduct = (id, data, result) => {
+    con.query('update producttbl set ? where product_id = ?', [data, id], (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// update product image
+Users.updateproductimg = (id, data, result) => {
+    con.query('update producttbl set product_image = ? where product_id = ?', [data, id] , (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
 module.exports = Users;

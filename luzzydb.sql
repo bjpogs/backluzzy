@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2022 at 06:54 PM
+-- Generation Time: Jun 27, 2022 at 03:57 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -126,7 +126,7 @@ CREATE TABLE `producttbl` (
 --
 
 INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category`, `product_price`, `product_size`, `product_qty`, `product_image`, `product_description`, `product_status`, `product_flavor`, `product_shape`, `product_icing`, `product_layer`, `product_tier`) VALUES
-(23, 18766323, 'ANNIVERSARY CAKE 1', 'ANNIVERSARY', 1200, '6 x 4 inch', 2, 'http://localhost:4000\\Images\\product_image-1655440974545.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(23, 18766323, 'ANNIVERSARY CAKE 1', 'ANNIVERSARY', 1200, '6 x 4 inch', 2, 'http://localhost:4000\\Images\\product_image-1656337854053.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
 (24, 17356989, 'ANNIVERSARY CAKE 2', 'ANNIVERSARY', 1000, '6 x 4 inch', 2, 'http://localhost:4000\\Images\\product_image-1655440994209.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
 (25, 10757590, 'BENTO 1', 'BENTO', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441053167.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
 (26, 10711029, 'BENTO 2', 'BENTO', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441058696.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
@@ -156,7 +156,8 @@ INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category
 (50, 13729403, 'NUMBER 3', 'NUMBER', 1000, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441827156.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
 (51, 12105926, 'WEDDING 1', 'WEDDING', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441881728.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 3),
 (52, 12897483, 'WEDDING 2', 'WEDDING', 1500, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441895264.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
-(53, 12159310, 'WEDDING 3', 'WEDDING', 3000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441909906.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2);
+(53, 12159310, 'WEDDING 3', 'WEDDING', 3000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441909906.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
+(54, 11409034, 'ANNIVERSARRY CAKE 3', 'ANNIVERSARY', 1500, '6 x 3 inch', 0, 'http://localhost:4000\\Images\\product_image-1656324317866.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -352,7 +353,7 @@ ALTER TABLE `ordertbl`
 -- AUTO_INCREMENT for table `producttbl`
 --
 ALTER TABLE `producttbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `reservationtbl`

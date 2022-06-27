@@ -91,10 +91,10 @@ router.post('/register', controller.register);
 router.post('/savecustom', authenticateToken, controller.savecustom);
 
 // retrieve all build cake orders
-router.get('/allbuildorders', controller.getallbuildorders);
+router.get('/allbuildorders', authenticateToken, controller.getallbuildorders);
 
 // retrieve all regular orders
-router.get('/allorders' , controller.getallorders);
+router.get('/allorders' , authenticateToken, controller.getallorders);
 
 // update status
 router.post('/updatestatus', authenticateToken, controller.updatestatus);
@@ -105,6 +105,11 @@ router.get('/allreservation', authenticateToken, controller.getallreservation);
 // update reservation status
 router.post('/updatereservationstatus', authenticateToken, controller.updatereservationstatus);
 
+// update product
+router.post('/updateproduct', authenticateToken, controller.updateproduct)
+
+// update product image
+router.post('/updateproductimg', upload.single('product_image'), authenticateToken, controller.updateproductimg)
 module.exports = router;
 
 // need to fix : cart ( mode of order : reservation or order direct. )
