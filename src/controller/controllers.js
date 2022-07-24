@@ -524,3 +524,74 @@ exports.updateproductimg = (req, res) => {
         }
     })
 }
+
+// get order by user
+exports.getorderbyuser = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403);
+    users.getorderbyuser(req.session.user, (err, user) =>{
+        if (err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('get order by user : ok');
+            res.send(user);
+        }
+    })
+}
+
+// select
+exports.buildselect = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403);
+    users.buildselect((err, user) => {
+        if(err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('get build select : ok');
+            res.send(user);
+        }
+    })
+}
+
+// add select
+exports.addbuildselect = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403);
+    users.addbuildselect(req.body, (err, user) => {
+        if(err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('add build select : ok');
+            res.send(user);
+        }
+    })
+}
+
+// edit select
+exports.editbuildselect = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403);
+    var temp = {
+        name : req.body.name,
+        price : req.body.price
+    }
+    console.log(temp);
+    users.editbuildselect(req.body.id, temp, (err, user) => {
+        if(err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('edit build select : ok');
+            res.send(user);
+        }
+    })
+}
+
+// delete select
+exports.deletebuildselect = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403);
+    users.deletebuildselect(req.params.id, (err, user) => {
+        console.log(user);
+        if(err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('delete build select : ok');
+            res.send(user);
+        }
+    })
+}

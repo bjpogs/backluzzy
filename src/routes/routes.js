@@ -110,6 +110,22 @@ router.post('/updateproduct', authenticateToken, controller.updateproduct)
 
 // update product image
 router.post('/updateproductimg', upload.single('product_image'), authenticateToken, controller.updateproductimg)
+
+// get all orders from user 
+router.get('/orderbyuser', authenticateToken, controller.getorderbyuser)
+
+// get all option for build a cake
+router.get('/buildselect', authenticateToken, controller.buildselect)
+
+// add select
+router.post('/addbuildselect', authenticateToken, controller.addbuildselect)
+
+// edit select
+router.post('/editbuildselect', authenticateToken, controller.editbuildselect)
+
+// delete select
+router.delete('/deletebuildselect/:id', authenticateToken, controller.deletebuildselect)
+
 module.exports = router;
 
 // need to fix : cart ( mode of order : reservation or order direct. )

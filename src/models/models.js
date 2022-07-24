@@ -211,4 +211,44 @@ Users.updateproductimg = (id, data, result) => {
     })
 }
 
+// get product by user
+Users.getorderbyuser = (id, result) => {
+    con.query('select * from ordertbl ot inner join producttbl pt on ot.product_id = pt.product_id inner join statustbl st on ot.order_id = st.order_id where ot.user_id = ?', id, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// build select
+Users.buildselect = (result) => {
+    con.query('select * from selecttbl', (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// add select
+Users.addbuildselect = (data, result) => {
+    con.query('insert into selecttbl set ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// edit select
+Users.editbuildselect = (id, data, result) => {
+    con.query('update selecttbl set ? where name = ?', [data, id], (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
+// delete select
+Users.deletebuildselect = (data, result) => {
+    con.query('delete from selecttbl where name = ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
 module.exports = Users;
