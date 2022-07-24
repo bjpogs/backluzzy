@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2022 at 03:57 PM
+-- Generation Time: Jul 24, 2022 at 11:09 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -67,6 +67,13 @@ CREATE TABLE `carttbl` (
   `product_id` int(11) NOT NULL,
   `request` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `carttbl`
+--
+
+INSERT INTO `carttbl` (`cart_num`, `user_id`, `product_id`, `request`) VALUES
+(44, 123123123, 18766323, '');
 
 -- --------------------------------------------------------
 
@@ -197,6 +204,57 @@ INSERT INTO `reservationtbl` (`num`, `reservation_id`, `first_name`, `last_name`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `selecttbl`
+--
+
+CREATE TABLE `selecttbl` (
+  `num` int(11) NOT NULL,
+  `id` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `price` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `selecttbl`
+--
+
+INSERT INTO `selecttbl` (`num`, `id`, `name`, `price`) VALUES
+(1, 'size', '6 by 2 inch (1 layer)', 600),
+(2, 'size', '7 by 3 inch (1 layer)', 600),
+(3, 'size', '8 by 3 inch(1 layer)', 1300),
+(4, 'size', '7 by 3 inch 2 tier(1 layer)', 1400),
+(5, 'size', '8 by 5 inch 2 tier (1layer)', 1500),
+(6, 'size', '7 by 3 inch 2 tier (2layer)', 2000),
+(7, 'size', '8 by 5 inch 2 tier (2layer)', 2500),
+(8, 'size', '7 by 3 inch 2 tier (3layer)', 3000),
+(9, 'size', '8 by 5 inch 2 tier (3layer)', 3500),
+(10, 'flavor', 'Ube', 0),
+(11, 'flavor', 'Moist Chocolate', 0),
+(12, 'flavor', 'Vanilla Caramel', 0),
+(13, 'design', 'Design 1', 0),
+(14, 'design', 'Design 2', 0),
+(15, 'design', 'Design 3', 0),
+(16, 'design', 'Design 4', 0),
+(17, 'design', 'Design 5', 0),
+(18, 'topping', 'Topping 1', 50),
+(19, 'topping', 'Topping 2', 100),
+(20, 'topping', 'Topping 3', 150),
+(21, 'topping', 'Topping 4', 200),
+(22, 'topping', 'Topping 5', 250),
+(23, 'topper', 'Number', 100),
+(24, 'topper', 'Happy Anniversary', 300),
+(25, 'topper', 'Happy Birthday', 300),
+(26, 'topper', 'Congratulations', 300),
+(27, 'topper', 'Gender Reveal', 400),
+(28, 'icing', 'Butter Cream', 0),
+(29, 'icing', 'Fondant', 0),
+(30, 'icing', 'Whipped Cream', 0),
+(33, 'size', 'testing last', 12312),
+(34, 'size', 'test last', 123);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `statustbl`
 --
 
@@ -268,7 +326,7 @@ CREATE TABLE `usertbl` (
 --
 
 INSERT INTO `usertbl` (`num`, `user_id`, `username`, `password`, `usercategory`) VALUES
-(2, 202200001, 'testuser', '$2a$10$iVuPQIC5qmNd16VpPzebMOn3VLfCU8erkn1TGN37tqa.Rsmch5E5u', 123),
+(2, 202200001, 'adminluzzy', '$2a$10$iVuPQIC5qmNd16VpPzebMOn3VLfCU8erkn1TGN37tqa.Rsmch5E5u', 123),
 (4, 123123123, 'test', '$2a$10$S0MYXTtOXssSIh081q4WWufu5Sm5mXHQ6457kU0t1ptHobumDOhPu', 0),
 (5, 12978673, 'asd', '$2a$10$Rlpoq.SXGwXWDkGNjFjvueAvk4bgXG1Kf8c673hmqOMP7D6ptRc2G', 0),
 (16, 12646981, 'test1', '$2a$10$BYk6dVFDUo34V6jO1CaeiO2EvGJ0OqCHtK0oy4rsI94O6jhHjPtcm', 0);
@@ -309,6 +367,12 @@ ALTER TABLE `reservationtbl`
   ADD PRIMARY KEY (`num`);
 
 --
+-- Indexes for table `selecttbl`
+--
+ALTER TABLE `selecttbl`
+  ADD PRIMARY KEY (`num`);
+
+--
 -- Indexes for table `statustbl`
 --
 ALTER TABLE `statustbl`
@@ -341,7 +405,7 @@ ALTER TABLE `buildcaketbl`
 -- AUTO_INCREMENT for table `carttbl`
 --
 ALTER TABLE `carttbl`
-  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `ordertbl`
@@ -360,6 +424,12 @@ ALTER TABLE `producttbl`
 --
 ALTER TABLE `reservationtbl`
   MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `selecttbl`
+--
+ALTER TABLE `selecttbl`
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `statustbl`
