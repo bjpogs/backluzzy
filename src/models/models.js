@@ -251,4 +251,12 @@ Users.deletebuildselect = (data, result) => {
     })
 }
 
+// add to status
+Users.addtostatus = (data, result) => {
+    con.query('insert into statustbl set ?', data, (err, res) => {
+        if (err) result(null, err);
+        else result(null, res);
+    })
+}
+
 module.exports = Users;

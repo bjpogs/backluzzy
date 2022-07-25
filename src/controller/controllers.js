@@ -394,8 +394,8 @@ exports.savecustom = (req, res) => {
         size : req.body.size,
         flavor : req.body.flavor,
         design : req.body.design,
-        topping1 : req.body.top1,
-        topping2 : req.body.top2,
+        topping1 : req.body.topping1,
+        topping2 : req.body.topping2,
         topper : req.body.topper,
         icing : req.body.icing,
         number : req.body.number,
@@ -417,10 +417,22 @@ exports.savecustom = (req, res) => {
                 if (err) res.sendStatus(500)
                 else if (user.errno) res.sendStatus(500)
                 else{
-                    console.log('build a cake : ok');
-                    res.sendStatus(200);
+                    var tempdata1 = {
+                        order_id : orid,
+                        user_id : req.session.user,
+                        status : 'Pending'
+                    }
+                    users.addtostatus(tempdata1, (err, user1) => {
+                        if (err) res.sendStatus(500)
+                        else if (user1.errno) res.sendStatus(500)
+                        else{
+                            console.log('build a cake : ok');
+                            res.sendStatus(200);
+                        }
+                    })
                 }
             })
+            
         }
     })
 }

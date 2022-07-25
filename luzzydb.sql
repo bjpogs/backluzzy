@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 24, 2022 at 11:09 AM
+-- Generation Time: Jul 25, 2022 at 10:04 AM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -53,7 +53,12 @@ INSERT INTO `buildcaketbl` (`buildcakenum`, `product_id`, `user_id`, `size`, `fl
 (3, 11038300, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', '', 0),
 (4, 13975179, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', '', 0),
 (5, 13501559, 123123123, '6x2', 'Ube', 'Design 1', 'topping4', 'topping5', 'Happy Anniversary', '', '', '', 0),
-(6, 15351688, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', '', 0);
+(6, 15351688, 123123123, '6x2', 'Ube', 'Design 1', '', '', '', '', '', '', 0),
+(7, 13930363, 123123123, '6 by 2 inch (1 layer)', 'Ube', 'Design 1', 'None', 'None', 'None', '', 'Butter Cream', '', 0),
+(8, 15801741, 123123123, '6 by 2 inch (1 layer)', 'Ube', 'Design 1', 'None', 'None', 'None', '', 'Butter Cream', '', 0),
+(9, 14462565, 123123123, '6 by 2 inch (1 layer)', 'Ube', 'Design 1', 'None', 'None', 'None', '', 'Butter Cream', '0', 0),
+(10, 12861159, 123123123, '6 by 2 inch (1 layer)', 'Ube', 'Design 1', 'None', 'None', 'None', '', 'Butter Cream', '0', 0),
+(11, 10156431, 123123123, '6 by 2 inch (1 layer)', 'Ube', 'Design 1', 'None', 'None', 'None', '', 'Butter Cream', '0', 0);
 
 -- --------------------------------------------------------
 
@@ -102,7 +107,12 @@ INSERT INTO `ordertbl` (`num`, `order_id`, `user_id`, `product_id`, `order_date`
 (3, 14548175, 123123123, 15351688, '2022-06-22', '', 0, ''),
 (4, 10563455, 123123123, 16223096, NULL, '', 0, ''),
 (5, 14244843, 12646981, 14267702, NULL, '', 0, ''),
-(6, 15903526, 123123123, 13632354, NULL, '', 0, '');
+(6, 15903526, 123123123, 13632354, NULL, '', 0, ''),
+(7, 11245534, 123123123, 13930363, NULL, '', 0, ''),
+(8, 16398949, 123123123, 15801741, NULL, '', 0, ''),
+(9, 13842155, 123123123, 14462565, 'not applicable', '', 0, ''),
+(10, 14847354, 123123123, 12861159, 'not applicable', '', 0, ''),
+(11, 13946378, 123123123, 10156431, '2022-07-28', '', 0, '');
 
 -- --------------------------------------------------------
 
@@ -199,7 +209,9 @@ INSERT INTO `reservationtbl` (`num`, `reservation_id`, `first_name`, `last_name`
 (2, 14380299, 'asd', 'asdf', 'asdfasdf', '123123', 'asdf.asdfa@asdf.asdf', '2022-06-23', '10:00 AM', 'http://localhost:4000\\Images\\image-1655174030628.jpg', '6x2', 'Ube', 'Fondant', '', 'Pending'),
 (3, 15582251, 'asd', 'asd', 'asdasd', '12323', 'asd@asd.asd', '2022-06-22', '10:00 AM', 'http://localhost:4000\\Images\\image-1655174130989.jpg', '6x2', 'Ube', 'Fondant', '', 'Pending'),
 (4, 15033801, 'asd', 'asd', 'asd', '123', 'asdf.asdfa@asdf.asdf', '2022-06-24', '10:00 AM', 'http://localhost:4000\\Images\\image-1655174177641.jpg', '6x2', 'Vanilla Caramel', 'Fondant', '', 'Pending'),
-(5, 18801414, 'Miku', 'Nakano', 'cavite bandang langit', '0912312312', 'bjpogs26@gmail.com', '2022-06-30', '01:00 PM', 'http://localhost:4000\\Images\\image-1656233428887.png', '7x3 3 layer', 'Moist-Chocolate', 'Fondant', 'wag masyadong matamis fondant.', 'Pending');
+(5, 18801414, 'Miku', 'Nakano', 'cavite bandang langit', '0912312312', 'bjpogs26@gmail.com', '2022-06-30', '01:00 PM', 'http://localhost:4000\\Images\\image-1656233428887.png', '7x3 3 layer', 'Moist-Chocolate', 'Fondant', 'wag masyadong matamis fondant.', 'Pending'),
+(6, 10472147, 'asda', 'asdasd', 'asdasd', '112312', 'aasd@asdasd.com', '2022-07-19', '10:00 AM', 'http://localhost:4000\\Images\\image-1658731555226.png', '6x2 inch', 'Ube', 'Butter Cream', '', ''),
+(7, 16726514, '123', '123', '123', '123123', '1231@123121.12312', '2022-07-27', '10:00 AM', 'http://localhost:4000\\Images\\image-1658733549156.png', '8x3 inch', 'Vanilla-Caramel', 'Whipped Cream', 'fuck this ubo', '');
 
 -- --------------------------------------------------------
 
@@ -275,7 +287,9 @@ INSERT INTO `statustbl` (`num`, `order_id`, `user_id`, `status`) VALUES
 (3, 10563455, 123123123, 'Pending'),
 (4, 14548175, 123123123, 'To Pick Up'),
 (5, 11587672, 123123123, 'Processing'),
-(6, 12644302, 123123123, 'To Pick Up');
+(6, 12644302, 123123123, 'To Pick Up'),
+(7, 14847354, 123123123, 'Pending'),
+(8, 13946378, 123123123, 'Pending');
 
 -- --------------------------------------------------------
 
@@ -399,7 +413,7 @@ ALTER TABLE `usertbl`
 -- AUTO_INCREMENT for table `buildcaketbl`
 --
 ALTER TABLE `buildcaketbl`
-  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `carttbl`
@@ -411,7 +425,7 @@ ALTER TABLE `carttbl`
 -- AUTO_INCREMENT for table `ordertbl`
 --
 ALTER TABLE `ordertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `producttbl`
@@ -423,7 +437,7 @@ ALTER TABLE `producttbl`
 -- AUTO_INCREMENT for table `reservationtbl`
 --
 ALTER TABLE `reservationtbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `selecttbl`
@@ -435,7 +449,7 @@ ALTER TABLE `selecttbl`
 -- AUTO_INCREMENT for table `statustbl`
 --
 ALTER TABLE `statustbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `userinfotbl`
