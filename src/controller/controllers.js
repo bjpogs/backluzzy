@@ -176,8 +176,18 @@ exports.reservecake = (req, res) => {
         else if (user.errno) res.sendStatus(500);
         else{
             console.log('add reservation : ok');
-            res.json({
-                ref_id : id
+            var tempdata1 = {
+                order_id : id,
+                user_id : !req.session.user ? id : req.session.user,
+                status : 'Pending'
+            }
+            users.addtostatus(tempdata1, (err, user1) => {
+                if (err) res.sendStatus(500)
+                else if (user1.errno) res.sendStatus(500)
+                else{
+                    console.log('place order : ok');
+                    res.sendStatus(200);
+                }
             })
         }
     })
@@ -306,8 +316,8 @@ exports.placeorder = (req, res) => {
     if (!req.session.user) return res.sendStatus(403)
     var data = req.body;
     var haserr = false;
+    var id = Math.floor(Math.random()*9000000)+10000000;
     data.map(meow => {
-        var id = Math.floor(Math.random()*9000000)+10000000;
         var tempdata = {
             order_id : id,
             user_id : req.session.user,
@@ -327,8 +337,20 @@ exports.placeorder = (req, res) => {
             if (err) res.sendStatus(500);
             else if (user.errno) res.sendStatus(500);
             else{
-                console.log('place order : true');
-                res.sendStatus(200);
+                // add to status
+                var tempdata1 = {
+                    order_id : id,
+                    user_id : req.session.user,
+                    status : 'Pending'
+                }
+                users.addtostatus(tempdata1, (err, user1) => {
+                    if (err) res.sendStatus(500)
+                    else if (user1.errno) res.sendStatus(500)
+                    else{
+                        console.log('place order : ok');
+                        res.sendStatus(200);
+                    }
+                })
             }
         })
         
@@ -388,18 +410,28 @@ exports.register = async (req, res) => {
 exports.savecustom = (req, res) => {
     if (!req.session.user) return res.sendStatus(403)
     var id = Math.floor(Math.random()*9000000)+10000000;
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    let mm = today.getMonth() + 1; // Months start at 0!
+    let dd = today.getDate();
+
+    if (dd < 10) dd = '0' + dd;
+    if (mm < 10) mm = '0' + mm;
+
+    const formattedToday = dd + '/' + mm + '/' + yyyy;
+    console.log('date today : ', formattedToday);
     var data = {
         product_id : id,
         user_id : req.session.user,
         size : req.body.size,
+        shape : req.body.shape,
         flavor : req.body.flavor,
         design : req.body.design,
-        topping1 : req.body.topping1,
-        topping2 : req.body.topping2,
+        topping : req.body.topping,
         topper : req.body.topper,
         icing : req.body.icing,
         number : req.body.number,
-        message : req.body.message
+        message : req.body.message,
     }
     users.savecustom(data, (err, user) => {
         if (err) res.sendStatus(500)

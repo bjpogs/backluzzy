@@ -69,7 +69,7 @@ Users.reservecake = (data, result) => {
 
 // get reservation
 Users.getallreservation = (result) => {
-    con.query('select * from reservationtbl', (err, res) => {
+    con.query('select * from reservationtbl rt inner join statustbl st on rt.reservation_id = st.order_id order by placeddate asc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
@@ -181,7 +181,7 @@ Users.updatestatus = (id, status, result) => {
 
 // get all rservation
 Users.getallreservation = (result) => {
-    con.query('select * from reservationtbl order by pickupdate desc', (err, res) => {
+    con.query('select * from reservationtbl rt inner join statustbl st on rt.reservation_id = st.order_id order by placeddate asc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
