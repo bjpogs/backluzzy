@@ -431,6 +431,7 @@ exports.savecustom = (req, res) => {
         topper : req.body.topper,
         icing : req.body.icing,
         number : req.body.number,
+        price : req.body.price,
         message : req.body.message,
     }
     users.savecustom(data, (err, user) => {
