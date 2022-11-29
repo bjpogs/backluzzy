@@ -171,6 +171,8 @@ exports.reservecake = (req, res) => {
         specialrequest : req.body.specialrequest
     }
     // save
+    res.send(data)
+    /*
     users.reservecake(data, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -191,6 +193,7 @@ exports.reservecake = (req, res) => {
             })
         }
     })
+    */
 }
 
 
