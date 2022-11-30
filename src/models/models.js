@@ -11,7 +11,7 @@ Users.superpoweraddadmin = (userdata, result) => {
     })
 }
 
-// login
+// login	
 Users.checkCredentials = (username, result) => {
     con.query('select * from usertbl where username = ?', username, (err, res) => {
         if (err) result(null, err);

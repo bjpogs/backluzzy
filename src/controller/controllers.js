@@ -319,8 +319,9 @@ exports.placeorder = (req, res) => {
     if (!req.session.user) return res.sendStatus(403)
     var data = req.body;
     var haserr = false;
-    var id = Math.floor(Math.random()*9000000)+10000000;
+    var id
     data.map(meow => {
+		id = Math.floor(Math.random()*9000000)+10000000;
         var tempdata = {
             order_id : id,
             user_id : req.session.user,
@@ -328,13 +329,16 @@ exports.placeorder = (req, res) => {
             order_date : meow.order_date,
             order_request : meow.request
         }
+		console.log(tempdata);
         users.placeorder(tempdata, (err, res) => {
             if (err) return haserr = true
             else if (res.errno) return haserr = true
+			
         })
     })
     if (haserr) res.sendStatus(500);
     else{
+		/* express.js
         // delete from cart
         users.deletefromcart(req.session.user, (err, user) => {
             if (err) res.sendStatus(500);
@@ -356,6 +360,8 @@ exports.placeorder = (req, res) => {
                 })
             }
         })
+		*/
+		res.sendStatus(200);
         
     }
 }
