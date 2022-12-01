@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2022 at 04:39 PM
--- Server version: 10.4.20-MariaDB
--- PHP Version: 8.0.9
+-- Generation Time: Dec 01, 2022 at 05:41 AM
+-- Server version: 10.4.19-MariaDB
+-- PHP Version: 8.0.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,14 +44,6 @@ CREATE TABLE `buildcaketbl` (
   `dateplaced` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `buildcaketbl`
---
-
-INSERT INTO `buildcaketbl` (`buildcakenum`, `product_id`, `user_id`, `size`, `shape`, `flavor`, `design`, `topping`, `topper`, `message`, `icing`, `number`, `price`, `dateplaced`) VALUES
-(15, 10315949, 123123123, '6x2 inch (1 tier)', 'Circle', 'Ube', 'Design 1', 'None', 'None', '', 'Butter Cream', '0', 0, '2022-07-31 13:27:56'),
-(16, 17222996, 123123123, '7x3 inch (1 tier)', 'Square', 'Moist Chocolate', 'Design 4', 'Topping 3', 'Dedication', 'Wala lang trip trip ko lang', 'Fondant', '', 0, '2022-07-31 14:21:44');
-
 -- --------------------------------------------------------
 
 --
@@ -80,14 +72,6 @@ CREATE TABLE `ordertbl` (
   `order_request` varchar(250) NOT NULL,
   `placeddate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `ordertbl`
---
-
-INSERT INTO `ordertbl` (`num`, `order_id`, `user_id`, `product_id`, `order_date`, `order_request`, `placeddate`) VALUES
-(18, 14330845, 123123123, 13632354, NULL, '', '2022-07-31 14:17:49'),
-(19, 18328614, 123123123, 17222996, '2022-08-26', '', '2022-07-31 14:21:44');
 
 -- --------------------------------------------------------
 
@@ -172,15 +156,9 @@ CREATE TABLE `reservationtbl` (
   `flavor` varchar(25) NOT NULL,
   `icing` varchar(25) NOT NULL,
   `specialrequest` varchar(250) NOT NULL,
+  `price` double NOT NULL,
   `placeddate` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `reservationtbl`
---
-
-INSERT INTO `reservationtbl` (`num`, `reservation_id`, `first_name`, `last_name`, `address`, `contact_number`, `email`, `pickupdate`, `pickuptime`, `image`, `size`, `flavor`, `icing`, `specialrequest`, `placeddate`) VALUES
-(10, 16275924, 'Aki', 'Shino', 'somewhere in etivac', '012312', 'shino.aki@gmail.com', '2022-08-26', '10:00 AM', 'http://localhost:4000\\Images\\image-1659278312189.jpeg', '7x3 inch', 'Moist-Chocolate', 'Whipped Cream', '', '2022-07-31 14:38:32');
 
 -- --------------------------------------------------------
 
@@ -255,15 +233,6 @@ CREATE TABLE `statustbl` (
   `status` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `statustbl`
---
-
-INSERT INTO `statustbl` (`num`, `order_id`, `user_id`, `status`) VALUES
-(13, 14330845, 123123123, 'Completed'),
-(14, 18328614, 123123123, 'To Pick Up'),
-(16, 16275924, 16275924, 'Pending');
-
 -- --------------------------------------------------------
 
 --
@@ -290,7 +259,7 @@ CREATE TABLE `userinfotbl` (
 --
 
 INSERT INTO `userinfotbl` (`num`, `user_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `add_house`, `add_brgy`, `add_city`, `add_province`, `contact_no`, `email_address`) VALUES
-(1, 202200001, 'Kaguya', '', 'Shinomiya', '01/01/2003', 'kanto lang\r\n', 'Navarro', 'General Trias', 'Cavite', '09123456789', 'kaguya.shinomiya@cvsu.edu.ph'),
+(1, 202200001, 'Admin', '', 'Admin', '01/01/2003', 'kanto lang\r\n', 'Navarro', 'General Trias', 'Cavite', '09123456789', 'kaguya.shinomiya@cvsu.edu.ph'),
 (2, 123123123, 'Shouko', '', 'Komi', '12/25/2005', '123', '12312', '3123', 'cavite', '12312312', 'shouko.komi@gmail.com'),
 (3, 12646981, 'Chika', '', 'Fujiwara', '2015-01-14', 'no', 'no', 'no', 'no', '123123123', 'chika.fujiwara@gmail.com');
 
@@ -315,7 +284,6 @@ CREATE TABLE `usertbl` (
 INSERT INTO `usertbl` (`num`, `user_id`, `username`, `password`, `usercategory`) VALUES
 (2, 202200001, 'adminluzzy', '$2a$10$iVuPQIC5qmNd16VpPzebMOn3VLfCU8erkn1TGN37tqa.Rsmch5E5u', 123),
 (4, 123123123, 'test', '$2a$10$S0MYXTtOXssSIh081q4WWufu5Sm5mXHQ6457kU0t1ptHobumDOhPu', 0),
-(5, 12978673, 'asd', '$2a$10$Rlpoq.SXGwXWDkGNjFjvueAvk4bgXG1Kf8c673hmqOMP7D6ptRc2G', 0),
 (16, 12646981, 'test1', '$2a$10$BYk6dVFDUo34V6jO1CaeiO2EvGJ0OqCHtK0oy4rsI94O6jhHjPtcm', 0);
 
 --
@@ -386,19 +354,19 @@ ALTER TABLE `usertbl`
 -- AUTO_INCREMENT for table `buildcaketbl`
 --
 ALTER TABLE `buildcaketbl`
-  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `carttbl`
 --
 ALTER TABLE `carttbl`
-  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `ordertbl`
 --
 ALTER TABLE `ordertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `producttbl`
@@ -410,7 +378,7 @@ ALTER TABLE `producttbl`
 -- AUTO_INCREMENT for table `reservationtbl`
 --
 ALTER TABLE `reservationtbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `selecttbl`
@@ -422,7 +390,7 @@ ALTER TABLE `selecttbl`
 -- AUTO_INCREMENT for table `statustbl`
 --
 ALTER TABLE `statustbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `userinfotbl`

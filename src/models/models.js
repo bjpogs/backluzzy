@@ -189,7 +189,7 @@ Users.getallreservation = (result) => {
 
 // update reservation status
 Users.updatereservationstatus = (id, status, result) => {
-    con.query('update reservationtbl set status = ? where reservation_id = ?', [status, id], (err, res) => {
+    con.query('update statustbl set status = ? where order_id = ?', [status, id], (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
@@ -256,6 +256,14 @@ Users.addtostatus = (data, result) => {
     con.query('insert into statustbl set ?', data, (err, res) => {
         if (err) result(null, err);
         else result(null, res);
+    })
+}
+
+// update reservation price
+Users.updatereservationprice = (id, price, result) => {
+    con.query('update reservationtbl set price = ? where reservation_id = ?', [price, id], (err, res) => {
+        if (err) result(null, err);
+        else result(null, res); 
     })
 }
 

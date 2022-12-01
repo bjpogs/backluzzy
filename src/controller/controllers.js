@@ -170,9 +170,6 @@ exports.reservecake = (req, res) => {
         icing : req.body.icing,
         specialrequest : req.body.specialrequest
     }
-    // save
-    res.send(data)
-    /*
     users.reservecake(data, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -188,12 +185,11 @@ exports.reservecake = (req, res) => {
                 else if (user1.errno) res.sendStatus(500)
                 else{
                     console.log('place order : ok');
-                    res.sendStatus(200);
+                    res.send(data)
                 }
             })
         }
     })
-    */
 }
 
 
@@ -333,36 +329,29 @@ exports.placeorder = (req, res) => {
         users.placeorder(tempdata, (err, res) => {
             if (err) return haserr = true
             else if (res.errno) return haserr = true
-			
+        })
+        // add order to status
+        var tostatus = {
+            order_id : id,
+            user_id : req.session.user,
+            status : 'Pending'
+        }
+        users.addtostatus(tostatus, (err, user1) => {
+            if (err) return haserr = true
+            else if (res.errno) return haserr = true
         })
     })
     if (haserr) res.sendStatus(500);
     else{
-		/* express.js
-        // delete from cart
+        // delete from cart note : need to select items to checkout / delete.
         users.deletefromcart(req.session.user, (err, user) => {
             if (err) res.sendStatus(500);
             else if (user.errno) res.sendStatus(500);
             else{
-                // add to status
-                var tempdata1 = {
-                    order_id : id,
-                    user_id : req.session.user,
-                    status : 'Pending'
-                }
-                users.addtostatus(tempdata1, (err, user1) => {
-                    if (err) res.sendStatus(500)
-                    else if (user1.errno) res.sendStatus(500)
-                    else{
-                        console.log('place order : ok');
-                        res.sendStatus(200);
-                    }
-                })
+                console.log('place order : ok');
+                res.sendStatus(200);
             }
         })
-		*/
-		res.sendStatus(200);
-        
     }
 }
 
@@ -535,6 +524,7 @@ exports.getallreservation = (req, res) => {
 exports.updatereservationstatus = (req, res) => {
     if (!req.session.user) return res.sendStatus(403)
     users.updatereservationstatus(req.body.reservation_id, req.body.status, (err, user) => {
+        console.log(user);
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
@@ -646,6 +636,19 @@ exports.deletebuildselect = (req, res) => {
         else{
             console.log('delete build select : ok');
             res.send(user);
+        }
+    })
+}
+
+// update reservation price
+exports.updatereservationprice = (req, res) => {
+    if (!req.session.user) return res.sendStatus(403);
+    users.updatereservationprice(req.body.reservation_id, req.body.price, (err, user) => {
+        if(err) res.sendStatus(500)
+        else if (user.errno) res.sendStatus(500)
+        else{
+            console.log('update price: ok');
+            res.sendStatus(200);
         }
     })
 }

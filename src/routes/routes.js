@@ -126,6 +126,9 @@ router.post('/editbuildselect', authenticateToken, controller.editbuildselect)
 // delete select
 router.delete('/deletebuildselect/:id', authenticateToken, controller.deletebuildselect)
 
+// update reservation price
+router.post('/updatereservationprice', authenticateToken, controller.updatereservationprice)
+
 module.exports = router;
 
 // need to fix : cart ( mode of order : reservation or order direct. )
