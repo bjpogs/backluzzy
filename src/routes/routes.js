@@ -121,7 +121,7 @@ router.get('/buildselect', authenticateToken, controller.buildselect)
 router.post('/addbuildselect', authenticateToken, controller.addbuildselect)
 
 // edit select
-router.post('/editbuildselect', authenticateToken, controller.editbuildselect)
+router.post('/editbuildselect', , upload.single('image'),authenticateToken, controller.editbuildselect)
 
 // delete select
 router.delete('/deletebuildselect/:id', authenticateToken, controller.deletebuildselect)

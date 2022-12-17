@@ -613,7 +613,8 @@ exports.editbuildselect = (req, res) => {
     if (!req.session.user) return res.sendStatus(403);
     var temp = {
         name : req.body.name,
-        price : req.body.price
+        price : req.body.price,
+		image : req.body.image
     }
     console.log(temp);
     users.editbuildselect(req.body.id, temp, (err, user) => {
