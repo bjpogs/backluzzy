@@ -598,7 +598,16 @@ exports.buildselect = (req, res) => {
 // add select
 exports.addbuildselect = (req, res) => {
     if (!req.session.user) return res.sendStatus(403);
-    users.addbuildselect(req.body, (err, user) => {
+    //"http://localhost:4000\\" + req.file.path
+    var data ={
+        id : req.body.id,
+        name : req.body.name,
+        price : req.body.price,
+        image : req.body.image == "" ? '' : "http://localhost:4000\\" + req.file.path
+    }
+    console.log(data);
+    users.addbuildselect(data, (err, user) => {
+        console.log(user);
         if(err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
@@ -611,12 +620,21 @@ exports.addbuildselect = (req, res) => {
 // edit select
 exports.editbuildselect = (req, res) => {
     if (!req.session.user) return res.sendStatus(403);
-    var temp = {
-        name : req.body.name,
-        price : req.body.price,
-		image : req.body.image
+    var temp
+    if (req.body.image == ""){
+        temp = {
+            name : req.body.name,
+            price : req.body.price,
+        }
     }
-    console.log(temp);
+    else{
+        temp = {
+            name : req.body.name,
+            price : req.body.price,
+            image : req.body.image == "" ? '' : "http://localhost:4000\\" + req.file.path
+        }
+    }
+    console.log(req.body.id, '+',temp);
     users.editbuildselect(req.body.id, temp, (err, user) => {
         if(err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)

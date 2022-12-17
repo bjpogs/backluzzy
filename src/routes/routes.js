@@ -118,10 +118,10 @@ router.get('/orderbyuser', authenticateToken, controller.getorderbyuser)
 router.get('/buildselect', authenticateToken, controller.buildselect)
 
 // add select
-router.post('/addbuildselect', authenticateToken, controller.addbuildselect)
+router.post('/addbuildselect', upload.single('image'), authenticateToken, controller.addbuildselect)
 
 // edit select
-router.post('/editbuildselect', , upload.single('image'),authenticateToken, controller.editbuildselect)
+router.post('/editbuildselect', upload.single('image'), authenticateToken, controller.editbuildselect)
 
 // delete select
 router.delete('/deletebuildselect/:id', authenticateToken, controller.deletebuildselect)
