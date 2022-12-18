@@ -4,7 +4,8 @@ const e = require('express');
 const jwt = require('jsonwebtoken');
 const users = require('../models/models')
 const fs = require('fs')
-const { promisify } = require('util')
+const { promisify } = require('util');
+const { log } = require('console');
 
 const unlinkAsync = promisify(fs.unlink)
 
@@ -406,7 +407,7 @@ exports.register = async (req, res) => {
 
 // save custom
 exports.savecustom = (req, res) => {
-    if (!req.session.user) return res.sendStatus(403)
+    //if (!req.session.user) return res.sendStatus(403)
     var id = Math.floor(Math.random()*9000000)+10000000;
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -422,17 +423,19 @@ exports.savecustom = (req, res) => {
         product_id : id,
         user_id : req.session.user,
         size : req.body.size,
-        shape : req.body.shape,
         flavor : req.body.flavor,
+        layer : req.body.layer,
         design : req.body.design,
-        topping : req.body.topping,
+        design1 : req.body.design1,
         topper : req.body.topper,
-        icing : req.body.icing,
         number : req.body.number,
+        date : req.body.date,
         price : req.body.price,
         message : req.body.message,
+        specialrequest : req.body.specialrequest,
     }
     users.savecustom(data, (err, user) => {
+        console.log(user);
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
@@ -445,6 +448,7 @@ exports.savecustom = (req, res) => {
                 order_date : req.body.date,
             }
             users.placeorder(tempdata, (err, user) => {
+                console.log('placeorder : ',user);
                 if (err) res.sendStatus(500)
                 else if (user.errno) res.sendStatus(500)
                 else{
@@ -454,6 +458,7 @@ exports.savecustom = (req, res) => {
                         status : 'Pending'
                     }
                     users.addtostatus(tempdata1, (err, user1) => {
+                        console.log('status : ',user1);
                         if (err) res.sendStatus(500)
                         else if (user1.errno) res.sendStatus(500)
                         else{

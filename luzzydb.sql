@@ -26,20 +26,23 @@ CREATE TABLE IF NOT EXISTS `buildcaketbl` (
   `layer` varchar(50) NOT NULL,
   `flavor` varchar(100) NOT NULL,
   `design` varchar(100) NOT NULL,
-  `design2` varchar(100) NOT NULL,
+  `design1` varchar(100) NOT NULL,
   `topper` varchar(100) NOT NULL,
   `message` varchar(250) NOT NULL,
   `specialrequest` varchar(25) NOT NULL,
   `number` varchar(100) NOT NULL,
   `price` int(11) NOT NULL,
   `dateplaced` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`buildcakenum`),
   UNIQUE KEY `order_id` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table luzzydb.buildcaketbl: ~0 rows (approximately)
+-- Dumping data for table luzzydb.buildcaketbl: ~2 rows (approximately)
 DELETE FROM `buildcaketbl`;
 /*!40000 ALTER TABLE `buildcaketbl` DISABLE KEYS */;
+INSERT INTO `buildcaketbl` (`buildcakenum`, `product_id`, `user_id`, `size`, `layer`, `flavor`, `design`, `design1`, `topper`, `message`, `specialrequest`, `number`, `price`, `dateplaced`, `date`) VALUES
+	(20, 14126965, 123123123, '6x2', '1', 'Ube', 'Plain', '', 'None', '', '', '', 600, '2022-12-18 17:32:02', '');
 /*!40000 ALTER TABLE `buildcaketbl` ENABLE KEYS */;
 
 -- Dumping structure for table luzzydb.carttbl
@@ -63,14 +66,16 @@ CREATE TABLE IF NOT EXISTS `ordertbl` (
   `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `order_date` varchar(100) DEFAULT NULL,
-  `order_request` varchar(250) NOT NULL,
+  `order_request` varchar(250) DEFAULT NULL,
   `placeddate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`num`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
 -- Dumping data for table luzzydb.ordertbl: ~0 rows (approximately)
 DELETE FROM `ordertbl`;
 /*!40000 ALTER TABLE `ordertbl` DISABLE KEYS */;
+INSERT INTO `ordertbl` (`num`, `order_id`, `user_id`, `product_id`, `order_date`, `order_request`, `placeddate`) VALUES
+	(27, 18189926, 123123123, 14126965, '', NULL, '2022-12-18 17:32:02');
 /*!40000 ALTER TABLE `ordertbl` ENABLE KEYS */;
 
 -- Dumping structure for table luzzydb.producttbl
@@ -153,11 +158,11 @@ CREATE TABLE IF NOT EXISTS `reservationtbl` (
   PRIMARY KEY (`num`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table luzzydb.reservationtbl: ~1 rows (approximately)
+-- Dumping data for table luzzydb.reservationtbl: ~0 rows (approximately)
 DELETE FROM `reservationtbl`;
 /*!40000 ALTER TABLE `reservationtbl` DISABLE KEYS */;
 INSERT INTO `reservationtbl` (`num`, `reservation_id`, `first_name`, `last_name`, `address`, `contact_number`, `email`, `pickupdate`, `pickuptime`, `image`, `size`, `flavor`, `icing`, `specialrequest`, `price`, `placeddate`) VALUES
-	(14, 11336767, 'Test', 'tsasd', '123124', '11241231', 'asd@asdas.asdf', '2022-12-14', '10:00 AM', 'http://localhost:4000\\Images\\image-1671015457410.jpg', '6x2 inch', 'Ube', 'Butter Cream', '', 0, '2022-12-14 10:57:37');
+	(14, 11336767, 'Test', 'tsasd', '123124', '11241231', 'asd@asdas.asdf', '2022-12-14', '10:00 AM', 'http://localhost:4000\\Images\\image-1671015457410.jpg', '6x2 inch', 'Ube', 'Butter Cream', '', 0, '2022-12-14 18:57:37');
 /*!40000 ALTER TABLE `reservationtbl` ENABLE KEYS */;
 
 -- Dumping structure for table luzzydb.selecttbl
@@ -216,13 +221,14 @@ CREATE TABLE IF NOT EXISTS `statustbl` (
   `user_id` int(11) NOT NULL,
   `status` varchar(15) NOT NULL,
   PRIMARY KEY (`num`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4;
 
--- Dumping data for table luzzydb.statustbl: ~1 rows (approximately)
+-- Dumping data for table luzzydb.statustbl: ~0 rows (approximately)
 DELETE FROM `statustbl`;
 /*!40000 ALTER TABLE `statustbl` DISABLE KEYS */;
 INSERT INTO `statustbl` (`num`, `order_id`, `user_id`, `status`) VALUES
-	(25, 11336767, 11336767, 'Pending');
+	(25, 11336767, 11336767, 'Pending'),
+	(26, 18189926, 123123123, 'Pending');
 /*!40000 ALTER TABLE `statustbl` ENABLE KEYS */;
 
 -- Dumping structure for table luzzydb.userinfotbl
