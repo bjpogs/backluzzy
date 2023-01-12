@@ -91,6 +91,7 @@ exports.meowrefreshtoken = (req, res) => {
 // get all products
 exports.getallproducts = (req, res) => {
     users.getallproducts((err, user) => {
+        console.log(user);
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{

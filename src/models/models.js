@@ -29,7 +29,7 @@ Users.getbasic = (user_id, result) => {
 
 // get all products
 Users.getallproducts = (result) => {
-    con.query('select * from producttbl order by product_category, product_subcategory asc', (err, res) => {
+    con.query('select * from producttbl order by if(product_category RLIKE "[a-z]", 1 , 2), product_subcategory asc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
