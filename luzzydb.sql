@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 12, 2023 at 11:36 AM
+-- Generation Time: Jan 17, 2023 at 10:59 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -50,7 +50,8 @@ CREATE TABLE `buildcaketbl` (
 --
 
 INSERT INTO `buildcaketbl` (`buildcakenum`, `product_id`, `user_id`, `size`, `layer`, `flavor`, `design`, `design1`, `topper`, `message`, `specialrequest`, `number`, `price`, `dateplaced`, `date`) VALUES
-(20, 14126965, 123123123, '6x2', '1', 'Ube', 'Plain', '', 'None', '', '', '', 600, '2022-12-18 09:32:02', '');
+(20, 14126965, 123123123, '6x2', '1', 'Ube', 'Plain', '', 'None', '', '', '', 600, '2022-12-18 09:32:02', ''),
+(21, 15121431, 16026877, '6x2', '1', 'Ube', 'Choco-Strawberry', '', 'Anniversary', '', '', '', 700, '2023-01-17 09:36:15', '');
 
 -- --------------------------------------------------------
 
@@ -86,7 +87,9 @@ CREATE TABLE `ordertbl` (
 --
 
 INSERT INTO `ordertbl` (`num`, `order_id`, `user_id`, `product_id`, `order_date`, `order_request`, `placeddate`) VALUES
-(27, 18189926, 123123123, 14126965, '', NULL, '2022-12-18 09:32:02');
+(27, 18189926, 123123123, 14126965, '', NULL, '2022-12-18 09:32:02'),
+(28, 15076337, 16026877, 15121431, '', NULL, '2023-01-17 09:36:15'),
+(29, 10416955, 16026877, 10757590, NULL, '', '2023-01-17 09:46:43');
 
 -- --------------------------------------------------------
 
@@ -118,37 +121,37 @@ CREATE TABLE `producttbl` (
 --
 
 INSERT INTO `producttbl` (`num`, `product_id`, `product_name`, `product_category`, `product_subcategory`, `product_price`, `product_size`, `product_qty`, `product_image`, `product_description`, `product_status`, `product_flavor`, `product_shape`, `product_icing`, `product_layer`, `product_tier`) VALUES
-(23, 18766323, 'ANNIVERSARY CAKE 1', 'Events', 'Anniversary', 1200, '6 x 4 inch', 2, 'http://localhost:4000\\Images\\product_image-1656337854053.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(24, 17356989, 'ANNIVERSARY CAKE 2', 'Events', 'Anniversary', 1000, '6 x 4 inch', 2, 'http://localhost:4000\\Images\\product_image-1655440994209.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(25, 10757590, 'BENTO 1', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441053167.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(26, 10711029, 'BENTO 2', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441058696.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(27, 14267702, 'BENTO 3', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441064402.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(28, 14819923, 'BENTO 4', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441069767.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(29, 14666078, 'BENTO 5', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441074756.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(30, 15080663, 'BENTO 6', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441082042.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(31, 13632354, 'BIRTHDAY 1', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441307718.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
-(32, 16223096, 'BIRTHDAY 2', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441322451.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
-(33, 15233437, 'BIRTHDAY 3', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441333557.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
-(34, 11054841, 'BIRTHDAY 4', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441339675.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
-(35, 18101179, 'CHARACTER 1', 'Events', 'Character', 1000, '6 x 4 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441436034.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
-(36, 13723330, 'CHARACTER 2', 'Events', 'Character', 1000, '6 x 4 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441440667.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
-(37, 17951320, 'CHRISTENING 1', 'Events', 'Christening', 1300, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441471914.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
-(38, 18159052, 'CHRISTENING 2', 'Events', 'Christening', 1300, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441490217.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
-(39, 11922610, 'CUPCAKE 1', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441524296.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
-(40, 16519532, 'CUPCAKE 2', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441529052.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
-(41, 14989330, 'CUPCAKE 3', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441538668.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
-(42, 17375893, 'CUPCAKE 4', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441546616.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
-(43, 10093668, 'DEBUT 1', 'Events', 'Debut', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441622506.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
-(44, 14490939, 'DEBUT 2', 'Events', 'Debut', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441630679.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
-(45, 17523095, 'DEBUT 3', 'Events', 'Debut', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441638594.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
-(46, 15414933, 'GENDER 1', 'Events', 'Gender', 1500, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441757914.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 2, 1),
-(47, 16238302, 'GENDER 2', 'Events', 'Gender', 1500, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441765413.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 2, 1),
-(48, 15872710, 'NUMBER 1', 'Simple', '', 1000, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441803285.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
-(49, 15430861, 'NUMBER 2', 'Simple', '', 1000, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441819131.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
-(50, 13729403, 'NUMBER 3', 'Simple', '', 1000, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441827156.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
-(51, 12105926, 'WEDDING 1', 'Events', 'Wedding', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441881728.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 3),
-(52, 12897483, 'WEDDING 2', 'Events', 'Wedding', 1500, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441895264.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
-(53, 12159310, 'WEDDING 3', 'Events', 'Wedding', 3000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441909906.jpg', 'Beatiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
+(23, 18766323, 'ANNIVERSARY CAKE 1', 'Events', 'Anniversary', 1200, '6 x 4 inch', 2, 'http://localhost:4000\\Images\\product_image-1656337854053.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(24, 17356989, 'ANNIVERSARY CAKE 2', 'Events', 'Anniversary', 1000, '6 x 4 inch', 2, 'http://localhost:4000\\Images\\product_image-1655440994209.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(25, 10757590, 'BENTO 1', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441053167.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(26, 10711029, 'BENTO 2', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441058696.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(27, 14267702, 'BENTO 3', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441064402.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(28, 14819923, 'BENTO 4', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441069767.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(29, 14666078, 'BENTO 5', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441074756.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(30, 15080663, 'BENTO 6', 'Simple', '', 300, '6 x 2 inch', 2, 'http://localhost:4000\\Images\\product_image-1655441082042.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(31, 13632354, 'BIRTHDAY 1', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441307718.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
+(32, 16223096, 'BIRTHDAY 2', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441322451.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
+(33, 15233437, 'BIRTHDAY 3', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441333557.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Whipped Cream', 1, 1),
+(34, 11054841, 'BIRTHDAY 4', 'Events', 'Birthday', 1200, '7 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441339675.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
+(35, 18101179, 'CHARACTER 1', 'Events', 'Character', 1000, '6 x 4 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441436034.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
+(36, 13723330, 'CHARACTER 2', 'Events', 'Character', 1000, '6 x 4 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441440667.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
+(37, 17951320, 'CHRISTENING 1', 'Events', 'Christening', 1300, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441471914.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
+(38, 18159052, 'CHRISTENING 2', 'Events', 'Christening', 1300, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441490217.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 1),
+(39, 11922610, 'CUPCAKE 1', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441524296.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
+(40, 16519532, 'CUPCAKE 2', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441529052.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
+(41, 14989330, 'CUPCAKE 3', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441538668.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
+(42, 17375893, 'CUPCAKE 4', 'Cupcake', '', 600, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441546616.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
+(43, 10093668, 'DEBUT 1', 'Events', 'Debut', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441622506.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
+(44, 14490939, 'DEBUT 2', 'Events', 'Debut', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441630679.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
+(45, 17523095, 'DEBUT 3', 'Events', 'Debut', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441638594.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
+(46, 15414933, 'GENDER 1', 'Events', 'Gender', 1500, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441757914.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 2, 1),
+(47, 16238302, 'GENDER 2', 'Events', 'Gender', 1500, '8 x 3 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441765413.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 2, 1),
+(48, 15872710, 'NUMBER 1', 'Simple', '', 1000, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441803285.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
+(49, 15430861, 'NUMBER 2', 'Simple', '', 1000, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441819131.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
+(50, 13729403, 'NUMBER 3', 'Simple', '', 1000, '2 x 2 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441827156.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Butter Cream', 1, 1),
+(51, 12105926, 'WEDDING 1', 'Events', 'Wedding', 5000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441881728.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 3),
+(52, 12897483, 'WEDDING 2', 'Events', 'Wedding', 1500, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441895264.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
+(53, 12159310, 'WEDDING 3', 'Events', 'Wedding', 3000, '8 x 5 inch', 1, 'http://localhost:4000\\Images\\product_image-1655441909906.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 1, 2),
 (54, 11409034, 'ANNIVERSARRY CAKE', 'Events', 'Anniversary', 1500, '6 x 3 inch', 0, 'http://localhost:4000\\Images\\product_image-1656324317866.jpg', 'Beautiful and delicious cakes handcrafted with love and care by Luzzy.', 0, 'Moist Chocolate', 'Circle', 'Fondant', 3, 1);
 
 -- --------------------------------------------------------
@@ -181,7 +184,8 @@ CREATE TABLE `reservationtbl` (
 --
 
 INSERT INTO `reservationtbl` (`num`, `reservation_id`, `first_name`, `last_name`, `address`, `contact_number`, `email`, `pickupdate`, `pickuptime`, `image`, `size`, `flavor`, `icing`, `specialrequest`, `price`, `placeddate`) VALUES
-(14, 11336767, 'Test', 'tsasd', '123124', '11241231', 'asd@asdas.asdf', '2022-12-14', '10:00 AM', 'http://localhost:4000\\Images\\image-1671015457410.jpg', '6x2 inch', 'Ube', 'Butter Cream', '', 0, '2022-12-14 10:57:37');
+(14, 11336767, 'Test', 'tsasd', '123124', '11241231', 'asd@asdas.asdf', '2022-12-14', '10:00 AM', 'http://localhost:4000\\Images\\image-1671015457410.jpg', '6x2 inch', 'Ube', 'Butter Cream', '', 0, '2022-12-14 10:57:37'),
+(15, 14884785, 'adf', 'asdf', 'asdf', '12312', 'bjpogs26@gmail.com', '2023-01-22', '10:00 AM', 'http://localhost:4000\\Images\\image-1673946028928.jpg', '6x2 inch', 'Ube', 'Butter Cream', 'asdfasdf', 10000, '2023-01-17 09:01:38');
 
 -- --------------------------------------------------------
 
@@ -255,7 +259,10 @@ CREATE TABLE `statustbl` (
 
 INSERT INTO `statustbl` (`num`, `order_id`, `user_id`, `status`) VALUES
 (25, 11336767, 11336767, 'Pending'),
-(26, 18189926, 123123123, 'Pending');
+(26, 18189926, 123123123, 'Pending'),
+(27, 14884785, 14884785, 'To Pick Up'),
+(28, 15076337, 16026877, 'To Pick Up'),
+(29, 10416955, 16026877, 'To Pick Up');
 
 -- --------------------------------------------------------
 
@@ -285,7 +292,8 @@ CREATE TABLE `userinfotbl` (
 INSERT INTO `userinfotbl` (`num`, `user_id`, `first_name`, `middle_name`, `last_name`, `birthday`, `add_house`, `add_brgy`, `add_city`, `add_province`, `contact_no`, `email_address`) VALUES
 (1, 202200001, 'Admin', '', 'Admin', '01/01/2003', 'kanto lang\r\n', 'Navarro', 'General Trias', 'Cavite', '09123456789', 'kaguya.shinomiya@cvsu.edu.ph'),
 (2, 123123123, 'Shouko', '', 'Komi', '12/25/2005', '123', '12312', '3123', 'cavite', '12312312', 'shouko.komi@gmail.com'),
-(3, 12646981, 'Chika', '', 'Fujiwara', '2015-01-14', 'no', 'no', 'no', 'no', '123123123', 'chika.fujiwara@gmail.com');
+(3, 12646981, 'Chika', '', 'Fujiwara', '2015-01-14', 'no', 'no', 'no', 'no', '123123123', 'chika.fujiwara@gmail.com'),
+(4, 16026877, 'Urushi', '', 'Yaotome', '2005-12-01', 'asd', 'asd', 'asd', 'asd', '123123', 'ariel.atienzajr@cvsu.edu.ph');
 
 -- --------------------------------------------------------
 
@@ -308,7 +316,8 @@ CREATE TABLE `usertbl` (
 INSERT INTO `usertbl` (`num`, `user_id`, `username`, `password`, `usercategory`) VALUES
 (2, 202200001, 'adminluzzy', '$2a$10$iVuPQIC5qmNd16VpPzebMOn3VLfCU8erkn1TGN37tqa.Rsmch5E5u', 123),
 (4, 123123123, 'test', '$2a$10$S0MYXTtOXssSIh081q4WWufu5Sm5mXHQ6457kU0t1ptHobumDOhPu', 0),
-(16, 12646981, 'test1', '$2a$10$BYk6dVFDUo34V6jO1CaeiO2EvGJ0OqCHtK0oy4rsI94O6jhHjPtcm', 0);
+(16, 12646981, 'test1', '$2a$10$BYk6dVFDUo34V6jO1CaeiO2EvGJ0OqCHtK0oy4rsI94O6jhHjPtcm', 0),
+(17, 16026877, 'bjpogs', '$2a$10$ZmyQ.FB4w2/d0/efxxPecu/U.UhzHuKVAxlWFVZu/DDGwwRrRVkfK', 0);
 
 --
 -- Indexes for dumped tables
@@ -378,19 +387,19 @@ ALTER TABLE `usertbl`
 -- AUTO_INCREMENT for table `buildcaketbl`
 --
 ALTER TABLE `buildcaketbl`
-  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `buildcakenum` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `carttbl`
 --
 ALTER TABLE `carttbl`
-  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `cart_num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `ordertbl`
 --
 ALTER TABLE `ordertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `producttbl`
@@ -402,7 +411,7 @@ ALTER TABLE `producttbl`
 -- AUTO_INCREMENT for table `reservationtbl`
 --
 ALTER TABLE `reservationtbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `selecttbl`
@@ -414,19 +423,19 @@ ALTER TABLE `selecttbl`
 -- AUTO_INCREMENT for table `statustbl`
 --
 ALTER TABLE `statustbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `userinfotbl`
 --
 ALTER TABLE `userinfotbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `usertbl`
 --
 ALTER TABLE `usertbl`
-  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `num` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

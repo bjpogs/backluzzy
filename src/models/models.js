@@ -266,5 +266,4 @@ Users.updatereservationprice = (id, price, result) => {
         else result(null, res); 
     })
 }
-
 module.exports = Users;
