@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 
 const con = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "",
-    database: "luzzydb",
+    host: process.env.API_HOST,
+    user: process.env.API_USER,
+    password: process.env.API_PASSWORD,
+    database: process.env.API_DATABASE,
     multipleStatements: true
 });
 
