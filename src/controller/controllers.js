@@ -91,7 +91,6 @@ exports.meowrefreshtoken = (req, res) => {
 // get all products
 exports.getallproducts = (req, res) => {
     users.getallproducts((err, user) => {
-        console.log(user);
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{
@@ -217,9 +216,7 @@ exports.getuserinfo = (req, res) => {
 
 exports.updateuserinfo = (req, res) => {
     if (!req.session.user) return res.sendStatus(403)
-    console.log(req.body);
     users.updateuserinfo(req.session.user, req.body, (err, user) => {
-        console.log(user);
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{
@@ -293,7 +290,6 @@ exports.deletefromcart = (req, res) => {
         else{
             // resave cart 
             var items = req.body
-            console.log(items);
             items.map(meow => {
                 var data  = {
                     user_id : req.session.user,
@@ -327,7 +323,6 @@ exports.placeorder = (req, res) => {
             order_date : meow.order_date,
             order_request : meow.request
         }
-		console.log(tempdata);
         users.placeorder(tempdata, (err, res) => {
             if (err) return haserr = true
             else if (res.errno) return haserr = true
@@ -375,7 +370,6 @@ exports.register = async (req, res) => {
             if (user.errno == 1062)
             {
                 res.sendStatus(400)
-                console.log(user);
             }
             else res.sendStatus(500)
         }
@@ -419,7 +413,6 @@ exports.savecustom = (req, res) => {
     if (mm < 10) mm = '0' + mm;
 
     const formattedToday = dd + '/' + mm + '/' + yyyy;
-    console.log('date today : ', formattedToday);
     var data = {
         product_id : id,
         user_id : req.session.user,
@@ -436,7 +429,6 @@ exports.savecustom = (req, res) => {
         specialrequest : req.body.specialrequest,
     }
     users.savecustom(data, (err, user) => {
-        console.log(user);
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
@@ -449,7 +441,6 @@ exports.savecustom = (req, res) => {
                 order_date : req.body.date,
             }
             users.placeorder(tempdata, (err, user) => {
-                console.log('placeorder : ',user);
                 if (err) res.sendStatus(500)
                 else if (user.errno) res.sendStatus(500)
                 else{
@@ -459,7 +450,6 @@ exports.savecustom = (req, res) => {
                         status : 'Pending'
                     }
                     users.addtostatus(tempdata1, (err, user1) => {
-                        console.log('status : ',user1);
                         if (err) res.sendStatus(500)
                         else if (user1.errno) res.sendStatus(500)
                         else{
@@ -530,7 +520,6 @@ exports.getallreservation = (req, res) => {
 exports.updatereservationstatus = (req, res) => {
     if (!req.session.user) return res.sendStatus(403)
     users.updatereservationstatus(req.body.reservation_id, req.body.status, (err, user) => {
-        console.log(user);
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
@@ -546,7 +535,6 @@ exports.updateproduct = (req, res) => {
     var tempdata = req.body
     var product_id = req.body.product_id
     delete tempdata.product_id
-    console.log(req.body );
     users.updateproduct(product_id, tempdata, (err, user) => {
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
@@ -563,7 +551,6 @@ exports.updateproductimg = (req, res) => {
     var id = req.body.product_id
     var image = "http://localhost:4000\\" + req.file.path
     var moo = req.body.old_img.slice(22)
-    console.log(moo);
     users.updateproductimg(id, image, (err, user) =>{
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
@@ -611,9 +598,7 @@ exports.addbuildselect = (req, res) => {
         price : req.body.price,
         image : req.body.image == "" ? '' : "http://localhost:4000\\" + req.file.path
     }
-    console.log(data);
     users.addbuildselect(data, (err, user) => {
-        console.log(user);
         if(err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
@@ -640,7 +625,6 @@ exports.editbuildselect = (req, res) => {
             image : req.body.image == "" ? '' : "http://localhost:4000\\" + req.file.path
         }
     }
-    console.log(req.body.id, '+',temp);
     users.editbuildselect(req.body.id, temp, (err, user) => {
         if(err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
@@ -655,7 +639,6 @@ exports.editbuildselect = (req, res) => {
 exports.deletebuildselect = (req, res) => {
     if (!req.session.user) return res.sendStatus(403);
     users.deletebuildselect(req.params.id, (err, user) => {
-        console.log(user);
         if(err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{

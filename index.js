@@ -7,7 +7,7 @@ const app = express();
 const path = require('path')
 
 app.use(cors({
-    origin: ["http://localhost:3000","http://localhost:3001"],
+    origin: ["http://185.201.9.29","http://www.luzzysupremesweets.shop/"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
