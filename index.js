@@ -51,7 +51,7 @@ app.get('/', (req, res) => {
 });
 
 const getroutes = require('./src/routes/routes');
-app.use('/api/v1', getroutes);
+app.use('/backluzzy/', getroutes);
 
 
 app.use(function(req, res, next) {
