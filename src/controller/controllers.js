@@ -128,7 +128,7 @@ exports.addproduct = (req, res) => {
         product_layer : req.body.product_layer,
         product_tier : req.body.product_tier,
         product_description : req.body.product_description,
-        product_image : "http://localhost:4000\\" + req.file.path
+        product_image : "http://luzzysupremesweets.shop:4000\\" + req.file.path
     }
     users.addproduct(data, (err, user) => {
         if (err) res.sendStatus(500);
@@ -165,7 +165,7 @@ exports.reservecake = (req, res) => {
         email : req.body.email,
         pickupdate : req.body.pickupdate,
         pickuptime : req.body.time,
-        image : "http://localhost:4000\\" + req.file.path,
+        image : "http://luzzysupremesweets.shop:4000\\" + req.file.path,
         size : req.body.size,
         flavor : req.body.flavor,
         icing : req.body.icing,
@@ -549,7 +549,7 @@ exports.updateproduct = (req, res) => {
 exports.updateproductimg = (req, res) => {
     if (!req.session.user) return res.sendStatus(403)
     var id = req.body.product_id
-    var image = "http://localhost:4000\\" + req.file.path
+    var image = "http://luzzysupremesweets.shop:4000\\" + req.file.path
     var moo = req.body.old_img.slice(22)
     users.updateproductimg(id, image, (err, user) =>{
         if (err) res.sendStatus(500)
@@ -596,7 +596,7 @@ exports.addbuildselect = (req, res) => {
         id : req.body.id,
         name : req.body.name,
         price : req.body.price,
-        image : req.body.image == "" ? '' : "http://localhost:4000\\" + req.file.path
+        image : req.body.image == "" ? '' : "http://luzzysupremesweets.shop:4000\\" + req.file.path
     }
     users.addbuildselect(data, (err, user) => {
         if(err) res.sendStatus(500)
@@ -622,7 +622,7 @@ exports.editbuildselect = (req, res) => {
         temp = {
             name : req.body.name,
             price : req.body.price,
-            image : req.body.image == "" ? '' : "http://localhost:4000\\" + req.file.path
+            image : req.body.image == "" ? '' : "http://luzzysupremesweets.shop:4000\\" + req.file.path
         }
     }
     users.editbuildselect(req.body.id, temp, (err, user) => {

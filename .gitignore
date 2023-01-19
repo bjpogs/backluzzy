@@ -10,6 +10,7 @@
 
 # production
 /build
+luzzydb.sql
 
 # misc
 .DS_Store
