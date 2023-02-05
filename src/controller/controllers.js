@@ -17,6 +17,7 @@ exports.default = (req, res) => {
 
 // login
 exports.checkCredentials = (req, res) => {
+    try{
     let tempass = req.body.password;
     var usercat = 0
     users.checkCredentials(req.body.username, async(err, user) => {
@@ -39,7 +40,8 @@ exports.checkCredentials = (req, res) => {
                         else{
                             req.session.user = user_id
                             req.session.refreshToken = refreshToken
-                            res.json({
+                        console.log(req.session)    
+			res.json({
                                 accessToken : accessToken,
                                 fname : user[0].first_name,
                                 usercategory : usercat
@@ -56,7 +58,10 @@ exports.checkCredentials = (req, res) => {
                 res.sendStatus(500); 
             }
         }
-    })
+    })}
+    catch(err ){
+	res.status(400).json({ error: 'login error' })
+    }
 }
 
 // add admin * to remove 
@@ -77,6 +82,7 @@ exports.superpoweraddadmin = async (req, res) => {
 
 // refresh token 
 exports.meowrefreshtoken = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     jwt.verify(req.session.refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
         if(err) return res.sendStatus(404);
@@ -85,11 +91,17 @@ exports.meowrefreshtoken = (req, res) => {
             accessToken: accessToken
         })
         console.log('refreshtoken : ok');
-    })
+    })}
+
+    catch(err ){
+        res.status(400).json({ error: 'refreshtoken error' })
+    }
+
 }
 
 // get all products
 exports.getallproducts = (req, res) => {
+    try {
     users.getallproducts((err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -97,11 +109,15 @@ exports.getallproducts = (req, res) => {
             console.log('get all product : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'get all products error' })
+    }
 }
 
 // get product by category
 exports.getproductbycategory = (req, res) => {
+    try{
     users.getproductbycategory(req.params.id, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -109,11 +125,15 @@ exports.getproductbycategory = (req, res) => {
             console.log('get all product : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'get products by cat error' })
+    }
 }
 
 // add product
 exports.addproduct = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     var id = Math.floor(Math.random()*9000000)+10000000;
     var data = {
@@ -128,7 +148,7 @@ exports.addproduct = (req, res) => {
         product_layer : req.body.product_layer,
         product_tier : req.body.product_tier,
         product_description : req.body.product_description,
-        product_image : "http://luzzysupremesweets.shop:4000\\" + req.file.path
+        product_image : "http://luzzysupremesweets.shop/backluzzy/" + req.file.path
     }
     users.addproduct(data, (err, user) => {
         if (err) res.sendStatus(500);
@@ -137,11 +157,16 @@ exports.addproduct = (req, res) => {
             console.log('add product : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'add products error' })
+    }
+
 }
 
 // get product by id
 exports.getproductbyid = (req, res) => {
+    try{
     users.getproductbyid(req.params.id, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -150,11 +175,16 @@ exports.getproductbyid = (req, res) => {
             console.log('add product : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'get products by id error' })
+    }
+
 }
 
 // reserve product
 exports.reservecake = (req, res) => {
+    try{
     var id = Math.floor(Math.random()*9000000)+10000000;
     var data = {
         reservation_id : id,
@@ -165,20 +195,22 @@ exports.reservecake = (req, res) => {
         email : req.body.email,
         pickupdate : req.body.pickupdate,
         pickuptime : req.body.time,
-        image : "http://luzzysupremesweets.shop:4000\\" + req.file.path,
+        image : "http://luzzysupremesweets.shop/backluzzy/" + req.file.path,
         size : req.body.size,
         flavor : req.body.flavor,
         icing : req.body.icing,
-        specialrequest : req.body.specialrequest
+        specialrequest : req.body.specialrequest,
+	price : 0
     }
     users.reservecake(data, (err, user) => {
+	console.log(user);
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{
             console.log('add reservation : ok');
             var tempdata1 = {
                 order_id : id,
-                user_id : !req.session.user ? id : req.session.user,
+                user_id : id,
                 status : 'Pending'
             }
             users.addtostatus(tempdata1, (err, user1) => {
@@ -190,7 +222,10 @@ exports.reservecake = (req, res) => {
                 }
             })
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'reserve products error' })
+    }
 }
 
 
@@ -202,6 +237,7 @@ exports.logout = (req, res) => {
 
 // get userinfo
 exports.getuserinfo = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.getuserinfo(req.session.user, (err, user) => {
         if (err) res.sendStatus(500);
@@ -211,10 +247,15 @@ exports.getuserinfo = (req, res) => {
             console.log('get user : ok');
             res.send(user)
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'get user info error' })
+    }
+
 }
 
 exports.updateuserinfo = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.updateuserinfo(req.session.user, req.body, (err, user) => {
         if (err) res.sendStatus(500);
@@ -223,10 +264,15 @@ exports.updateuserinfo = (req, res) => {
             console.log('update user: ok');
             res.send(user)
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'update user info error' })
+    }
+
 }
 
 exports.deleteproduct = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.deleteproduct(req.params.id, (err, user) => {
         if (err) res.sendStatus(500);
@@ -236,10 +282,15 @@ exports.deleteproduct = (req, res) => {
             console.log('delete product: ok');
             res.send(user)
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'delete product error' })
+    }
+
 }
 
 exports.saveorder = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.saveorder(req.session.user, req.body, (err, user) => {
         if (err) res.sendStatus(500);
@@ -248,27 +299,38 @@ exports.saveorder = (req, res) => {
             console.log('delete product: ok');
             res.send(user)
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'save order error' })
+    }
+
 }
 
 exports.addtocart = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     var data  = {
         user_id : req.session.user,
         product_id : req.body.product_id
     }
     users.addtocart(data, (err, user) => {
+	console.log(user);
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
         else{
             console.log('add to cart: ok');
             res.send(user)
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'add to cart error' })
+    }
+
 }
 
 // retrieve cart
 exports.shoppingcart = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.shoppingcart(req.session.user, (err, user) => {
         if (err) res.sendStatus(500);
@@ -277,12 +339,17 @@ exports.shoppingcart = (req, res) => {
             console.log('shopping cart : ok');
             res.send(user)
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'retrieve cart error' })
+    }
+
 }
 
 // delete from cart
 exports.deletefromcart = (req, res) => {
     // delete all items from user first
+    try{
     var haserror = false
     users.deletefromcart(req.session.user, (err, user) => {
         if (err) res,sendStatus(500);
@@ -305,11 +372,16 @@ exports.deletefromcart = (req, res) => {
                 res.sendStatus(200);
             }
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'delete from cart error' })
+    }
+
 }
 
 // place order
 exports.placeorder = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     var data = req.body;
     var haserr = false;
@@ -350,10 +422,16 @@ exports.placeorder = (req, res) => {
             }
         })
     }
+    }
+    catch(err ){
+        res.status(400).json({ error: 'place order error' })
+    }
+
 }
 
 exports.register = async (req, res) => {
     // check if username exist.
+    try{
     var id = Math.floor(Math.random()*9000000)+10000000;
     let tempass = req.body.password;
     const hashedPassword = await bcrypt.hash(tempass, 10);
@@ -397,12 +475,17 @@ exports.register = async (req, res) => {
                 }
             })
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'register error' })
+    }
+
 } 
 
 // save custom
 exports.savecustom = (req, res) => {
-    //if (!req.session.user) return res.sendStatus(403)
+    try{
+    if (!req.session.user) return res.sendStatus(403)
     var id = Math.floor(Math.random()*9000000)+10000000;
     const today = new Date();
     const yyyy = today.getFullYear();
@@ -461,11 +544,16 @@ exports.savecustom = (req, res) => {
             })
             
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'save custom error' })
+    }
+
 }
 
 // get all orders
 exports.getallbuildorders = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.getallbuildorders((err, user) => {
         if (err) res.sendStatus(500)
@@ -476,9 +564,14 @@ exports.getallbuildorders = (req, res) => {
             res.send(user);
         }
     })
+    }
+    catch(err){
+        res.status(400).json({ error: 'get all build orders error' })
+    }
 }
 
 exports.getallorders = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.getallorders((err, user) => {
         if (err) res.sendStatus(500)
@@ -488,10 +581,15 @@ exports.getallorders = (req, res) => {
             console.log('get all orders : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'get all order error' })
+    }
+
 }
 
 exports.updatestatus = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.updatestatus(req.body.order_id, req.body.status, (err, user) => {
         if (err) res.sendStatus(500)
@@ -500,10 +598,15 @@ exports.updatestatus = (req, res) => {
             console.log('update status : ok');
             res.sendStatus(200);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'update status error' })
+    }
+
 }
 
 exports.getallreservation = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.getallreservation((err, user) => {
         if (err) res.sendStatus(500)
@@ -513,11 +616,16 @@ exports.getallreservation = (req, res) => {
             console.log('get all reservation : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'get all reservation error' })
+    }
+
 }
 
 // update reservation status
 exports.updatereservationstatus = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     users.updatereservationstatus(req.body.reservation_id, req.body.status, (err, user) => {
         if (err) res.sendStatus(500)
@@ -526,11 +634,16 @@ exports.updatereservationstatus = (req, res) => {
             console.log('update reservation status : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'upate reservation status error' })
+    }
+
 }
 
 // update product
 exports.updateproduct = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     var tempdata = req.body
     var product_id = req.body.product_id
@@ -542,14 +655,19 @@ exports.updateproduct = (req, res) => {
             console.log('update reservation status : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'upate product error' })
+    }
+
 }
 
 // update product image
 exports.updateproductimg = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403)
     var id = req.body.product_id
-    var image = "http://luzzysupremesweets.shop:4000\\" + req.file.path
+    var image = "http://luzzysupremesweets.shop/backluzzy/" + req.file.path
     var moo = req.body.old_img.slice(22)
     users.updateproductimg(id, image, (err, user) =>{
         if (err) res.sendStatus(500)
@@ -559,11 +677,16 @@ exports.updateproductimg = (req, res) => {
             unlinkAsync(moo)
             res.sendStatus(200)
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'upate product image error' })
+    }
+
 }
 
 // get order by user
 exports.getorderbyuser = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403);
     users.getorderbyuser(req.session.user, (err, user) =>{
         if (err) res.sendStatus(500)
@@ -572,11 +695,16 @@ exports.getorderbyuser = (req, res) => {
             console.log('get order by user : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'get order by user error' })
+    }
+
 }
 
 // select
 exports.buildselect = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403);
     users.buildselect((err, user) => {
         if(err) res.sendStatus(500)
@@ -585,18 +713,23 @@ exports.buildselect = (req, res) => {
             console.log('get build select : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'build select error' })
+    }
+
 }
 
 // add select
 exports.addbuildselect = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403);
     //"http://localhost:4000\\" + req.file.path
     var data ={
         id : req.body.id,
         name : req.body.name,
         price : req.body.price,
-        image : req.body.image == "" ? '' : "http://luzzysupremesweets.shop:4000\\" + req.file.path
+        image : req.body.image == "" ? '' : "http://luzzysupremesweets.shop/backluzzy/" + req.file.path
     }
     users.addbuildselect(data, (err, user) => {
         if(err) res.sendStatus(500)
@@ -605,11 +738,16 @@ exports.addbuildselect = (req, res) => {
             console.log('add build select : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'add build select error' })
+    }
+
 }
 
 // edit select
 exports.editbuildselect = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403);
     var temp
     if (req.body.image == ""){
@@ -622,7 +760,7 @@ exports.editbuildselect = (req, res) => {
         temp = {
             name : req.body.name,
             price : req.body.price,
-            image : req.body.image == "" ? '' : "http://luzzysupremesweets.shop:4000\\" + req.file.path
+            image : req.body.image == "" ? '' : "http://luzzysupremesweets.shop/backluzzy/" + req.file.path
         }
     }
     users.editbuildselect(req.body.id, temp, (err, user) => {
@@ -632,11 +770,16 @@ exports.editbuildselect = (req, res) => {
             console.log('edit build select : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'edit build select error' })
+    }
+
 }
 
 // delete select
 exports.deletebuildselect = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403);
     users.deletebuildselect(req.params.id, (err, user) => {
         if(err) res.sendStatus(500)
@@ -645,11 +788,16 @@ exports.deletebuildselect = (req, res) => {
             console.log('delete build select : ok');
             res.send(user);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'delete build select error' })
+    }
+
 }
 
 // update reservation price
 exports.updatereservationprice = (req, res) => {
+    try{
     if (!req.session.user) return res.sendStatus(403);
     users.updatereservationprice(req.body.reservation_id, req.body.price, (err, user) => {
         if(err) res.sendStatus(500)
@@ -658,5 +806,9 @@ exports.updatereservationprice = (req, res) => {
             console.log('update price: ok');
             res.sendStatus(200);
         }
-    })
+    })}
+    catch(err ){
+        res.status(400).json({ error: 'update reservation price error' })
+    }
+
 }

@@ -7,7 +7,7 @@ const app = express();
 const path = require('path')
 
 app.use(cors({
-    origin: ["http://185.201.9.29","http://www.api.luzzysupremesweets.shop/","www.api.luzzysupremesweets.shop"],
+    origin: ["http://185.201.9.29/","http://www.luzzysupremesweets.shop"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
@@ -28,18 +28,34 @@ app.use(sessions({
     key: "usermeowmeow",
     secret: "kaguya shinomiya is the best!",
     saveUninitialized: true,
-    cookie: { maxAge: oneDay },
+    cookie: { maxAge: 1000 * 60 * 60 * 24, secure: false },
     resave: false
 }));
 
+const options = {
+    host: '127.0.0.1',
+    user: 'root',
+    password: '@Kaguya26',
+    database: 'luzzydb'
+};
+/*
+app.use(sessions({
+	key:'usermeowmeow',
+	secret: 'kaguya shinomiya is the best!',
+	proxy: true,
+	cookie: {httpOnly:true,secure:false,MaxAge: oneDay,sameSite:'none'},
+	resave: false,
+	saveUninitialized: false
+})) */
+
 app.use((error, req, res, next) => {
     const message = `This is the unexpected field -> "${error.field}"`
-    console.log(message);
+    console.log('awit');
     return(res.status(500).send(message))
 })
 
 
-app.use('/Images', express.static('./Images'))
+app.use('/backluzzy/Images', express.static('/root/luzzy/backluzzy/Images'))
 
 app.use(express.static(path.join(__dirname, 'Images')))
 
@@ -50,8 +66,12 @@ app.get('/', (req, res) => {
     res.send('hello world!');
 });
 
+app.get('/backluzzy/fuck', (req, res) => {
+	res.send('fucker!');
+});
+
 const getroutes = require('./src/routes/routes');
-app.use('/backluzzy/', getroutes);
+app.use('/backluzzy/api/', getroutes);
 
 
 app.use(function(req, res, next) {
