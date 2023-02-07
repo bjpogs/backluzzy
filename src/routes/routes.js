@@ -61,7 +61,7 @@ router.post('/refreshmeow', controller.meowrefreshtoken);
 router.post('/logout', authenticateToken, controller.logout);
 
 // get user info
-router.get('/getuserinfo', authenticateToken, controller.getuserinfo);
+router.get('/getuserinfo', controller.getuserinfo);
 
 // save user info
 router.post('/updateuserinfo', authenticateToken, controller.updateuserinfo);
@@ -129,6 +129,14 @@ router.delete('/deletebuildselect/:id', authenticateToken, controller.deletebuil
 // update reservation price
 router.post('/updatereservationprice', authenticateToken, controller.updatereservationprice)
 
+// change Password
+router.post('/updatepass', authenticateToken, controller.changepassword)
+
+// get all for myorders
+router.get('/myorders/:id', controller.myorders)
+
+// track order
+router.get('/trackme/:id', controller.trackme)
 module.exports = router;
 
 // need to fix : cart ( mode of order : reservation or order direct. )

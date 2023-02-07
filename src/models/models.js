@@ -69,7 +69,7 @@ Users.reservecake = (data, result) => {
 
 // get reservation
 Users.getallreservation = (result) => {
-    con.query('select * from reservationtbl rt inner join statustbl st on rt.reservation_id = st.order_id order by placeddate asc', (err, res) => {
+    con.query('select * from reservationtbl rt inner join statustbl st on rt.order_id = st.order_id order by rt.placeddate asc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
@@ -157,7 +157,7 @@ Users.savecustom = (data, result) => {
 
 // get all build orders
 Users.getallbuildorders = (result) => {
-    con.query('select * from ordertbl ot inner join buildcaketbl bt on ot.product_id = bt.product_id inner join userinfotbl ut on ot.user_id = ut.user_id inner join statustbl st on ot.order_id = st.order_id order by ot.placeddate asc', (err, res) => {
+    con.query('select * from buildcaketbl bt inner join userinfotbl ut on bt.user_id = ut.user_id inner join statustbl st on bt.order_id = st.order_id order by bt.placeddate desc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
@@ -165,7 +165,7 @@ Users.getallbuildorders = (result) => {
 
 // get all orders
 Users.getallorders = (result) => {
-    con.query('select * from ordertbl ot inner join producttbl bt on ot.product_id = bt.product_id inner join userinfotbl ut on ot.user_id = ut.user_id inner join statustbl st on ot.order_id = st.order_id order by ot.placeddate asc', (err, res) => {
+    con.query('select * from ordertbl ot inner join producttbl bt on ot.product_id = bt.product_id inner join userinfotbl ut on ot.user_id = ut.user_id inner join statustbl st on ot.order_id = st.order_id order by ot.placeddate desc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
@@ -181,7 +181,7 @@ Users.updatestatus = (id, status, result) => {
 
 // get all rservation
 Users.getallreservation = (result) => {
-    con.query('select * from reservationtbl rt inner join statustbl st on rt.reservation_id = st.order_id order by placeddate asc', (err, res) => {
+    con.query('select * from reservationtbl rt inner join statustbl st on rt.order_id = st.order_id order by rt.placeddate desc', (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })
@@ -261,9 +261,54 @@ Users.addtostatus = (data, result) => {
 
 // update reservation price
 Users.updatereservationprice = (id, price, result) => {
-    con.query('update reservationtbl set price = ? where reservation_id = ?', [price, id], (err, res) => {
+    con.query('update reservationtbl set price = ? where order_id = ?', [price, id], (err, res) => {
         if (err) result(null, err);
         else result(null, res); 
     })
 }
+
+// update Password
+Users.updatepass = (id, np, result) => {
+	con.query('update usertbl set password = ? where user_id = ?', [np, id], (err, res) => {
+		if (err) result(null, err);
+        else result(null, res); 
+	})
+}
+
+// get password for change pass
+Users.getaccount = (id, result) =>{
+	con.query('select password from usertbl where user_id = ?', id, (err, res) => {
+		if (err) result(null, err);
+        else result(null, res); 
+	})
+}
+
+
+Users.trackme = (id, result) => {
+	con.query('select * from statustbl where order_id = ?', id, (err, res) => {
+		if (err) result(null, err);
+        else result(null, res); 
+	})
+}
+
+Users.myorders = (id, result) => {
+	con.query('select * from statustbl st inner join buildcaketbl bt on st.order_id = bt.order_id where st.user_id = ?', id, (err, res) => {
+		if (err) result(null, err);
+        else result(null, res); 
+	})
+}
+Users.myreserveorders = (id, result) => {
+	con.query('select * from statustbl st inner join reservationtbl bt on st.order_id = bt.order_id where st.user_id = ?', id, (err, res) => {
+		if (err) result(null, err);
+        else result(null, res); 
+	})
+}
+Users.myshoporders = (id, result) => {
+	con.query('select * from statustbl st inner join ordertbl bt on st.order_id = bt.order_id inner join producttbl pt on bt.product_id = pt.product_id where st.user_id = ?', id, (err, res) => {
+		if (err) result(null, err);
+        else result(null, res); 
+	})
+}
+
+
 module.exports = Users;

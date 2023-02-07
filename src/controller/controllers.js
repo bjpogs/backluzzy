@@ -41,9 +41,10 @@ exports.checkCredentials = (req, res) => {
                             req.session.user = user_id
                             req.session.refreshToken = refreshToken
                         console.log(req.session)    
-			res.json({
+							res.json({
                                 accessToken : accessToken,
                                 fname : user[0].first_name,
+								lname : user[0].last_name,
                                 usercategory : usercat
                             })
                         }
@@ -187,7 +188,7 @@ exports.reservecake = (req, res) => {
     try{
     var id = Math.floor(Math.random()*9000000)+10000000;
     var data = {
-        reservation_id : id,
+        order_id : id,
         first_name : req.body.first_name,
         last_name : req.body.last_name,
         address : req.body.address,
@@ -208,19 +209,21 @@ exports.reservecake = (req, res) => {
         else if (user.errno) res.sendStatus(500);
         else{
             console.log('add reservation : ok');
-            var tempdata1 = {
-                order_id : id,
-                user_id : id,
-                status : 'Pending'
-            }
-            users.addtostatus(tempdata1, (err, user1) => {
-                if (err) res.sendStatus(500)
-                else if (user1.errno) res.sendStatus(500)
-                else{
-                    console.log('place order : ok');
-                    res.send(data)
-                }
-            })
+			var tempdata1 = {
+			order_id : id,
+			user_id : req.session.user ? req.session.user : id,
+			status : 'Pending',
+			statcategory : 'Reservation'
+			}
+			users.addtostatus(tempdata1, (err, user1) => {
+				if (err) res.sendStatus(500)
+				else if (user1.errno) res.sendStatus(500)
+				else{
+					console.log('place order : ok');
+					res.send(data)
+				}
+			})
+            
         }
     })}
     catch(err ){
@@ -238,7 +241,7 @@ exports.logout = (req, res) => {
 // get userinfo
 exports.getuserinfo = (req, res) => {
     try{
-    if (!req.session.user) return res.sendStatus(403)
+    if (!req.session.user) return res.sendStatus(401)
     users.getuserinfo(req.session.user, (err, user) => {
         if (err) res.sendStatus(500);
         else if (user.errno) res.sendStatus(500);
@@ -403,7 +406,8 @@ exports.placeorder = (req, res) => {
         var tostatus = {
             order_id : id,
             user_id : req.session.user,
-            status : 'Pending'
+            status : 'Pending',
+			statcategory: 'Shop'
         }
         users.addtostatus(tostatus, (err, user1) => {
             if (err) return haserr = true
@@ -497,7 +501,7 @@ exports.savecustom = (req, res) => {
 
     const formattedToday = dd + '/' + mm + '/' + yyyy;
     var data = {
-        product_id : id,
+        order_id : id,
         user_id : req.session.user,
         size : req.body.size,
         flavor : req.body.flavor,
@@ -515,33 +519,22 @@ exports.savecustom = (req, res) => {
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else{
-            // add to cart
+            // add to cart product_id = order_id
             var orid = Math.floor(Math.random()*9000000)+10000000;
-            var tempdata = {
-                order_id : orid,
-                user_id : req.session.user,
-                product_id : id,
-                order_date : req.body.date,
-            }
-            users.placeorder(tempdata, (err, user) => {
-                if (err) res.sendStatus(500)
-                else if (user.errno) res.sendStatus(500)
-                else{
-                    var tempdata1 = {
-                        order_id : orid,
-                        user_id : req.session.user,
-                        status : 'Pending'
-                    }
-                    users.addtostatus(tempdata1, (err, user1) => {
-                        if (err) res.sendStatus(500)
-                        else if (user1.errno) res.sendStatus(500)
-                        else{
-                            console.log('build a cake : ok');
-                            res.sendStatus(200);
-                        }
-                    })
-                }
-            })
+            var tempdata1 = {
+				order_id : id,
+				user_id : req.session.user,
+				status : 'Pending',
+				statcategory: 'Build a Cake'
+			}
+			users.addtostatus(tempdata1, (err, user1) => {
+				if (err) res.sendStatus(500)
+				else if (user1.errno) res.sendStatus(500)
+				else{
+					console.log('build a cake : ok');
+					res.sendStatus(200);
+				}
+			})
             
         }
     })}
@@ -556,6 +549,7 @@ exports.getallbuildorders = (req, res) => {
     try{
     if (!req.session.user) return res.sendStatus(403)
     users.getallbuildorders((err, user) => {
+		console.log(user)
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else if (!user.length) res.sendStatus(404)
@@ -609,6 +603,7 @@ exports.getallreservation = (req, res) => {
     try{
     if (!req.session.user) return res.sendStatus(403)
     users.getallreservation((err, user) => {
+		console.log(user)
         if (err) res.sendStatus(500)
         else if (user.errno) res.sendStatus(500)
         else if (!user.length) res.sendStatus(404)
@@ -811,4 +806,93 @@ exports.updatereservationprice = (req, res) => {
         res.status(400).json({ error: 'update reservation price error' })
     }
 
+}
+
+//change password
+exports.changepassword = (req, res) => {
+	try{
+		if (!req.session.user) return res.sendStatus(403);
+		let tempass = req.body.newpass
+		let oldpass = req.body.oldpass
+		console.log('old pass : ', oldpass)
+		console.log('new pass : ', tempass)
+		users.getaccount(req.session.user, async(err, user) => {
+			if (err) res.sendStatus(500);
+			else if (user.errno) res.sendStatus(500);
+			else if (!user.length) res.sendStatus(403);
+			else{
+				let passhold = user[0].password;
+				try{
+					if (await bcrypt.compare(oldpass, passhold)){
+						// save updated password
+						const hashedPassword = await bcrypt.hash(tempass, 10);
+						tempass = hashedPassword;
+						console.log('new : ',tempass)
+						users.updatepass(req.session.user, tempass, (err, resu) => {
+							if (err) res.sendStatus(500)
+							else res.sendStatus(200)
+						})
+					}
+					else res.sendStatus(403); // wrong password
+				}
+				catch(err){
+					console.log(err);
+					res.sendStatus(500); 
+				}
+			}
+		})
+	}
+	catch(err) {
+		res.status(400).json({ error: 'change password error' })
+	}
+}
+
+// get all myorders
+exports.myorders = (req, res) => {
+	try{
+		//if (!req.session.user) return res.sendStatus(403);
+		let haserr = false
+		let data = []
+		// build
+		users.myorders(req.params.id, async(err, asd) => {
+			if (err) return res.sendStatus(500)
+			else if (asd.errno) return res.sendStatus(500)
+			else{
+				data.push(asd)
+			}
+		})
+		// reservation
+		users.myreserveorders(req.params.id, async (err, asd) => {
+			if (err) return res.sendStatus(500)
+			else if (asd.errno) return res.sendStatus(500)
+			else{
+				data.push(asd)
+			}
+		})
+		// shop
+		users.myshoporders(req.params.id, async (err, asd) => {
+			if (err) return res.sendStatus(500)
+			else if (asd.errno) return res.sendStatus(500)
+			else{
+				data.push(asd)
+			}
+			const finalchuchu = await data
+			console.log('final?',finalchuchu)
+			res.send(finalchuchu)
+		})
+	}
+	catch(err){
+		console.log(err)
+		res.status(400).json({ error: 'change password error' })
+	}
+}
+
+// track order
+exports.trackme = (req, res) => {
+	users.trackme(req.params.id, (err, asd) => {
+		if (err) return res.sendStatus(500)
+		else if (asd.errno) return res.sendStatus(500)
+		else if (!asd.length) return res.sendStatus(404)
+		else res.send(asd)
+	})
 }
