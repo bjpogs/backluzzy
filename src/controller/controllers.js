@@ -850,11 +850,11 @@ exports.changepassword = (req, res) => {
 // get all myorders
 exports.myorders = (req, res) => {
 	try{
-		//if (!req.session.user) return res.sendStatus(403);
+		if (!req.session.user) return res.sendStatus(403);
 		let haserr = false
 		let data = []
 		// build
-		users.myorders(req.params.id, async(err, asd) => {
+		users.myorders(req.session.user, async(err, asd) => {
 			if (err) return res.sendStatus(500)
 			else if (asd.errno) return res.sendStatus(500)
 			else{
@@ -862,7 +862,7 @@ exports.myorders = (req, res) => {
 			}
 		})
 		// reservation
-		users.myreserveorders(req.params.id, async (err, asd) => {
+		users.myreserveorders(req.session.user, async (err, asd) => {
 			if (err) return res.sendStatus(500)
 			else if (asd.errno) return res.sendStatus(500)
 			else{
@@ -870,7 +870,7 @@ exports.myorders = (req, res) => {
 			}
 		})
 		// shop
-		users.myshoporders(req.params.id, async (err, asd) => {
+		users.myshoporders(req.session.user, async (err, asd) => {
 			if (err) return res.sendStatus(500)
 			else if (asd.errno) return res.sendStatus(500)
 			else{
