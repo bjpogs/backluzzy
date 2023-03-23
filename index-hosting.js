@@ -41,7 +41,7 @@ app.use((error, req, res, next) => {
 })
 
 
-app.use(express.static('Images'))
+app.use('/backluzzy/Images', express.static('/root/backluzzy/Images'))
 
 //app.use(express.static(path.join(__dirname, 'Images')))
 

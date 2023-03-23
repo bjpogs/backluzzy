@@ -128,7 +128,7 @@ Users.addtocart = (data, result) => {
 
 // retrieve shopping cart
 Users.shoppingcart = (id, result) => {
-    con.query('select * from carttbl ct inner join producttbl pt on ct.product_id = pt.product_id where ct.user_id = ? order by pt.product_name asc', id, (err, res) => {
+    con.query('select * from carttbl ct inner join producttbl pt on ct.product_id = pt.product_id where ct.user_id = ? order by ct.cart_num desc', id, (err, res) => {
         if (err) result(null, err);
         else result(null, res);
     })

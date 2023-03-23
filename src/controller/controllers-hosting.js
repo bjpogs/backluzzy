@@ -157,7 +157,7 @@ exports.addproduct = (req, res) => {
         product_id : id,
         product_name : req.body.product_name,
         product_category : req.body.product_category,
-	    product_subcategory : req.body.product_subcategory,
+	product_subcategory : req.body.product_subcategory,
         product_price : req.body.product_price,
         product_size : req.body.product_size,
         product_flavor : req.body.product_flavor,
@@ -165,10 +165,10 @@ exports.addproduct = (req, res) => {
         product_icing : req.body.product_icing,
         product_layer : req.body.product_layer,
         product_tier : req.body.product_tier,
-	    product_status : 0,
-	    product_qty : 1,
+	product_status : 0,
+	product_qty : 1,
         product_description : req.body.product_description,
-        product_image : "http://localhost:4000/" + req.file.path
+        product_image : "https://luzzysupremesweets.shop/backluzzy/" + req.file.path
     }
     users.addproduct(data, (err, user) => {
         console.log(user);
@@ -191,7 +191,7 @@ exports.updateshopproduct = (req, res) => {
    var data = {
         product_name : req.body.product_name,
         product_category : req.body.product_category,
-	    product_subcategory : req.body.product_subcategory,
+	product_subcategory : req.body.product_subcategory,
         product_price : req.body.product_price,
         product_size : req.body.product_size,
         product_flavor : req.body.product_flavor,
@@ -254,12 +254,12 @@ exports.reservecake = (req, res) => {
         email : req.body.email,
         pickupdate : req.body.pickupdate,
         pickuptime : req.body.time,
-        image : "http://localhost:4000/" + req.file.path,
+        image : "https://luzzysupremesweets.shop/backluzzy/" + req.file.path,
         size : req.body.size,
         flavor : req.body.flavor,
         icing : req.body.icing,
         specialrequest : req.body.specialrequest,
-	    price : 0
+	price : 0
     }
     users.reservecake(data, (err, user) => {
 	console.log(user);
@@ -721,7 +721,7 @@ exports.updateproductimg = (req, res) => {
     try{
     if (!req.session.user) return res.sendStatus(403)
     var id = req.body.product_id
-    var image = "http://localhost:4000/" + req.file.path
+    var image = "https://luzzysupremesweets.shop/backluzzy/" + req.file.path
     var moo = req.body.old_img.slice(22)
     users.updateproductimg(id, image, (err, user) =>{
         if (err) res.sendStatus(500)
@@ -782,7 +782,7 @@ exports.addbuildselect = (req, res) => {
         id : req.body.id,
         name : req.body.name,
         price : req.body.price,
-        image : req.body.image == "" ? '' : !req.file ? req.body.image : "http://localhost:4000/" + req.file.path 
+        image : req.body.image == "" ? '' : !req.file ? req.body.image : "https://luzzysupremesweets.shop/backluzzy/" + req.file.path 
     }
     users.addbuildselect(data, (err, user) => {
         if(err) res.sendStatus(500)
@@ -814,7 +814,7 @@ exports.editbuildselect = (req, res) => {
         temp = {
             name : req.body.name,
             price : req.body.price,
-            image : req.body.image == "" ? '' : !req.file ? req.body.image : "http://localhost:4000/" + req.file.path
+            image : req.body.image == "" ? '' : !req.file ? req.body.image : "https://luzzysupremesweets.shop/backluzzy/" + req.file.path
         }
     }
     users.editbuildselect(req.body.id, temp, (err, user) => {
